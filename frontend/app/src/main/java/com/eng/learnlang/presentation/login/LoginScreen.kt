@@ -13,7 +13,7 @@ fun LoginScreen(
     navController: NavController
 ) {
     Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center){
-        Text(text = "Login sayfası ")
+        Text(text = "Login değişiklik yapıldı Test değişikliği ")
     }
 
 }
