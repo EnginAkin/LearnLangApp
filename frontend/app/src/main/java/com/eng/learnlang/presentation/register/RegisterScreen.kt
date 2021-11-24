@@ -1,11 +1,14 @@
 package com.eng.learnlang.presentation.register
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
@@ -18,6 +21,7 @@ import com.eng.learnlang.presentation.components.StandartTextField
 import com.eng.learnlang.presentation.login.LoginViewModel
 import com.eng.learnlang.presentation.ui.theme.SpaceLarge
 import com.eng.learnlang.presentation.ui.theme.SpaceMedium
+import com.eng.learnlang.presentation.util.Screen
 
 
 @Composable
@@ -44,7 +48,9 @@ fun RegisterScreen(
                 onValueChange = {
                     viewModel.setUsernameText(it)
                 },
-                hint = "Username"
+                hint = "Username",
+                error = viewModel.usernameError.value,
+
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandartTextField(
@@ -52,8 +58,10 @@ fun RegisterScreen(
                 onValueChange = {
                     viewModel.setemailText(it)
                 },
-                hint = "Email"
-            )
+                hint = "E-Mail",
+                error = viewModel.emailError.value,
+
+                )
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandartTextField(
                 text = viewModel.passwordText.value,
@@ -61,23 +69,35 @@ fun RegisterScreen(
                     viewModel.setpasswordText(it)
                 },
                 hint = "Password",
+                error = viewModel.passwordError.value,
                 keyboardType = KeyboardType.Password
             )
+            Spacer(modifier = Modifier.height(SpaceMedium))
+            Button(modifier=Modifier.align(Alignment.End),onClick = {
+
+            }) {
+                Text(
+                    text = "Register",
+                    color= Color.Black
+
+                )
+            }
         }
         Text(text = buildAnnotatedString {
-            append("dont have an account yet ?")
+            append("Already have an account ?")
             append(" ")
             withStyle(style = SpanStyle(
                 color = MaterialTheme.colors.primary,
                 textDecoration = TextDecoration.Underline
             )
             ){
-                append("Sign up")
+                append("Sign In")
             }
 
         },style = MaterialTheme.typography.body1,modifier= Modifier
             .align(Alignment.BottomCenter)
-            .padding(vertical = 20.dp))
+            .padding(vertical = 20.dp)
+            .clickable { navController.popBackStack()})
 
 
     }

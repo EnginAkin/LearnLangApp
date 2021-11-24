@@ -12,6 +12,7 @@ private val DarkColorPalette = darkColors(
     onPrimary = darkgray,
     surface = feed_color,
     onSurface = lightgray,
+    primaryVariant = hintgray
 
 
 
