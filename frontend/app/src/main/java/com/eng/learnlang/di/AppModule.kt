@@ -6,7 +6,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+object AppModule {
     // bağımlılıkları bu kısma yazacağız
 
 }
