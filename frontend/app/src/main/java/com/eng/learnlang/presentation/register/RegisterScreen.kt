@@ -1,16 +1,12 @@
-package com.eng.learnlang.presentation.login
+package com.eng.learnlang.presentation.register
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
@@ -19,14 +15,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.eng.learnlang.presentation.components.StandartTextField
+import com.eng.learnlang.presentation.login.LoginViewModel
 import com.eng.learnlang.presentation.ui.theme.SpaceLarge
 import com.eng.learnlang.presentation.ui.theme.SpaceMedium
-import com.eng.learnlang.presentation.util.Screen
+
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     navController: NavController,
-    viewModel: LoginViewModel= hiltViewModel(),
+    viewModel:RegisterViewModel= hiltViewModel()
 ) {
     Box(modifier = Modifier.fillMaxSize()){
         Column (verticalArrangement = Arrangement.Center,modifier = Modifier
@@ -40,15 +37,22 @@ fun LoginScreen(
             .align(
                 Alignment.Center
             )){
-            Text(text = "Login", style = MaterialTheme.typography.h1)
+            Text(text = "Register", style = MaterialTheme.typography.h1)
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandartTextField(
                 text = viewModel.usernameText.value,
                 onValueChange = {
                     viewModel.setUsernameText(it)
                 },
-                hint = "Email Or Username",
-                error = viewModel.usernameError.value
+                hint = "Username"
+            )
+            Spacer(modifier = Modifier.height(SpaceMedium))
+            StandartTextField(
+                text = viewModel.emailText.value,
+                onValueChange = {
+                    viewModel.setemailText(it)
+                },
+                hint = "Email"
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandartTextField(
@@ -56,24 +60,9 @@ fun LoginScreen(
                 onValueChange = {
                     viewModel.setpasswordText(it)
                 },
-                error = viewModel.passwordError.value ,
                 hint = "Password",
-                keyboardType = KeyboardType.Password,
-                showPasswordToggle = viewModel.showPassword.value,
-                onPasswordToggleClick = {
-                    viewModel.setShowPassword(it)
-                }
+                keyboardType = KeyboardType.Password
             )
-            Spacer(modifier = Modifier.height(SpaceMedium))
-            Button(modifier=Modifier.align(Alignment.End),onClick = {
-
-            }) {
-                Text(
-                    text = "Login",
-                    color= Color.Black
-
-                )
-            }
         }
         Text(text = buildAnnotatedString {
             append("dont have an account yet ?")
@@ -88,8 +77,7 @@ fun LoginScreen(
 
         },style = MaterialTheme.typography.body1,modifier= Modifier
             .align(Alignment.BottomCenter)
-            .padding(vertical = 20.dp)
-            .clickable { navController.navigate(Screen.RegisterScreen.route) })
+            .padding(vertical = 20.dp))
 
 
     }
