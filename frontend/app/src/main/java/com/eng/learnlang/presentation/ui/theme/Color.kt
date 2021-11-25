@@ -9,5 +9,5 @@ val lightgray=Color(0xFFADA9A9)
 val hintgray = Color(0xFF667A78)
 var feed_color=Color(0xFF455351)
 var MediumGray = Color(0xFF404040)
-
+var bottomGray=Color(0xFF5D5D61)
 

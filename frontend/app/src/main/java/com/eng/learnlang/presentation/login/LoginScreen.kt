@@ -66,7 +66,7 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             Button(modifier=Modifier.align(Alignment.End),onClick = {
-
+                navController.navigate(Screen.TopicWordScreen.route)
             }) {
                 Text(
                     text = "Login",

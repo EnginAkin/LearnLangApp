@@ -2,11 +2,19 @@ package com.eng.learnlang.presentation.topic_word
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.eng.learnlang.domain.model.Category
 import com.eng.learnlang.presentation.components.CategoryPost
+import com.eng.learnlang.presentation.components.ScaffolForComp
+import com.eng.learnlang.presentation.ui.theme.bottomGray
 
 @Composable
 fun TopicWords(
@@ -26,12 +34,11 @@ fun TopicWords(
         "B-2",categoryDescription = "English level B1 is the third level of English in the Common European Framework of Reference (CEFR), a definition of different language levels written by the Council of Europe. In everyday speech, this level would be called “intermediate”, and indeed, that is the official level descriptor in the CEFR.",
         190,19
     )
-   Column(modifier = Modifier.fillMaxSize()) {
 
-       CategoryPost(a1)
-       CategoryPost(a2)
-       CategoryPost(b1)
+        CategoryPost(category = a2)
+        CategoryPost(category = a1)
+        CategoryPost(category = b1)
 
-   }
+
 
 }
