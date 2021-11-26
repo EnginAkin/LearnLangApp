@@ -20,7 +20,7 @@ import com.eng.learnlang.presentation.wordlist_word_details.MyWordListDetailScre
 fun Navigation(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination =Screen.TopicWordScreen.route ){
+    NavHost(navController = navController, startDestination =Screen.ProfileScreen.route ){
 
         composable(Screen.SplashScreen.route){
             SplashScreen(navController = navController)

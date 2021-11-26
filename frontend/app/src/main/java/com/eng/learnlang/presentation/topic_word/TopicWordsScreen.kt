@@ -42,11 +42,18 @@ fun TopicWords(
         12
     )
     val b1 = Category(
-        "B-2",
+        "B-1",
         categoryDescription = "English level B1 is the third level of English in the Common European Framework of Reference (CEFR), a definition of different language levels written by the Council of Europe. In everyday speech, this level would be called “intermediate”, and indeed, that is the official level descriptor in the CEFR.",
         190,
         19
     )
+    val b2 = Category(
+        "B-2",
+        categoryDescription = "English level B2 is the third level of English in the Common European Framework of Reference (CEFR), a definition of different language levels written by the Council of Europe. In everyday speech, this level would be called “intermediate”, and indeed, that is the official level descriptor in the CEFR.",
+        350,
+        35
+    )
+    var listOfCategory = listOf(a1,a2,b1,b2)
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -69,13 +76,14 @@ fun TopicWords(
                 }
             }
         )
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 50.dp)){
-            items(10){
 
-                CategoryPost(category = b1,navController){
-                    navController.navigate(Screen.TopicWordDetailScreen.route)
+        LazyColumn(modifier = Modifier.fillMaxSize().padding(bottom = 50.dp)){
+            listOfCategory.forEachIndexed { index, category ->
+                item {
+                    CategoryPost(category = category, navController = navController) {
+                        navController.navigate(Screen.TopicWordDetailScreen.route)
+
+                    }
                 }
             }
         }
