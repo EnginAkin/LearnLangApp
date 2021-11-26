@@ -19,23 +19,23 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RowScope.StandartBottomNavItem(
-    modifier: Modifier= Modifier,
-    icon : ImageVector,
-    contentDescription : String ? =null,
+    modifier: Modifier = Modifier,
+    icon: ImageVector,
+    contentDescription: String? = null,
     selected: Boolean = false,
-    selectedColor : Color =MaterialTheme.colors.primary,
-    unSelectedColor : Color=Color.Black,
-    enabled : Boolean = true,
-    onclick : () -> Unit
-    ) {
+    selectedColor: Color = MaterialTheme.colors.primary,
+    unSelectedColor: Color = MaterialTheme.colors.secondaryVariant,
+    enabled: Boolean = true,
+    onclick: () -> Unit
+) {
 
     BottomNavigationItem(
         selected = selected,
-        onClick = onclick ,
+        onClick = onclick,
         modifier = modifier.background(MaterialTheme.colors.onSecondary),
         enabled = enabled,
-        selectedContentColor = selectedColor,
-        unselectedContentColor = if(!enabled)Color.Gray else unSelectedColor,
+        selectedContentColor = if (selected) selectedColor else unSelectedColor,
+        unselectedContentColor = if (!enabled) Color.Gray else unSelectedColor,
         icon = {
             Box(
                 modifier = Modifier
@@ -43,7 +43,7 @@ fun RowScope.StandartBottomNavItem(
                     .fillMaxSize()
                     .padding(bottom = 5.dp)
                     .drawBehind {
-                        if(selected){
+                        if (selected) {
                             drawLine(
                                 color = if (selected) selectedColor else unSelectedColor,
                                 start = Offset(
@@ -56,17 +56,14 @@ fun RowScope.StandartBottomNavItem(
                                 ),
                                 strokeWidth = 2.dp.toPx(),
                                 cap = StrokeCap.Round,
-
-                                )
+                            )
                         }
                     }
-            ){
+            ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = contentDescription,
                     modifier = Modifier.align(Alignment.Center),
-
-
                 )
             }
         }

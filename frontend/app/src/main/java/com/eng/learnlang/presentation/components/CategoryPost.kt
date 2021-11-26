@@ -3,6 +3,7 @@ package com.eng.learnlang.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.Absolute.Center
 import androidx.compose.foundation.shape.CutCornerShape
@@ -27,73 +28,104 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.eng.learnlang.domain.model.Category
 import com.eng.learnlang.presentation.ui.theme.MediumGray
 import com.eng.learnlang.presentation.ui.theme.SpaceMedium
 import com.eng.learnlang.presentation.ui.theme.hintgray
+import com.eng.learnlang.presentation.util.Screen
 import com.eng.learnlang.util.Constants
 
 @Composable
 fun CategoryPost(
-    category: Category
+    category: Category,
+    navController: NavController,
+    onClick : ()->Unit
 ) {
 
-       Box(
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(horizontal = 20.dp,vertical = 15.dp)
-               .clip(RoundedCornerShape(20.dp))
-               .background(hintgray)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp, vertical = 15.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(hintgray)
+            .border(width = 1.dp, color = Color.White, RoundedCornerShape(20.dp))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    onClick()
+                }
+                .padding(
+                    start = 15.dp,
+                    top = 7.dp,
+                    end = 15.dp,
+                    bottom = 15.dp
+                )
+        ) {
+            Text(
+                text = category.categoryName,
+                style = MaterialTheme.typography.h4,
+                modifier = Modifier.align(CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(SpaceMedium))
+            Text(
+                text = buildAnnotatedString {
+                    append(category.categoryDescription)
+                    withStyle(
+                        SpanStyle(
+                            color = hintgray
+                        )
+                    ) {
+                        append(
+                            "Read more ..."
+                        )
+                    }
+                },
+                style = MaterialTheme.typography.body2,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = Constants.MAX_CATEGORY_DESCRİPTİON_LINE
+            )
+            Spacer(modifier = Modifier.height(SpaceMedium))
 
-               .border(width = 1.dp, color = Color.White, RoundedCornerShape(20.dp))
-       ){
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row() {
 
-           Column (modifier = Modifier
-               .fillMaxWidth()
-               .padding(
-                   start = 15.dp,
-                   top = 7.dp,
-                   end = 15.dp,
-                   bottom = 15.dp
-               )
+                    Icon(
+                        imageVector = Icons.Default.GridOn,
+                        contentDescription = "grid",
+                        tint = MaterialTheme.colors.primary
+                    )
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(
+                        text = if (category.wordCount > 0) "${category.wordCount} Word" else "",
+                        style = MaterialTheme.typography.body2,
+                        modifier = Modifier.padding(top = 2.dp),
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+                Row() {
+                    Icon(
+                        imageVector = Icons.Filled.Timer,
+                        contentDescription = "timelapse 3x1",
+                        tint = MaterialTheme.colors.primary
+                    )
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(
+                        text = if (category.dayCount > 0) "${category.dayCount} Day" else "",
+                        style = MaterialTheme.typography.body2,
+                        modifier = Modifier.padding(top = 2.dp),
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
 
-           ){
-               Text(text =category.categoryName , style = MaterialTheme.typography.h4,modifier = Modifier.align(CenterHorizontally))
-               Spacer(modifier = Modifier.height(SpaceMedium))
-               Text(
-                   text = buildAnnotatedString {
-                       append(category.categoryDescription)
-                       withStyle(SpanStyle(
-                           color = hintgray
-                       )){
-                           append(
-                               "Read more ..."
-                           )
-                       }
-                   },
-                   style = MaterialTheme.typography.body2,
-                   overflow = TextOverflow.Ellipsis,
-                   maxLines =Constants.MAX_CATEGORY_DESCRİPTİON_LINE
-               )
-               Spacer(modifier = Modifier.height(SpaceMedium))
-
-               Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween) {
-                   Row(){
-
-                       Icon(imageVector = Icons.Default.GridOn, contentDescription ="grid" ,tint = MaterialTheme.colors.primary)
-                       Spacer(modifier = Modifier.width(5.dp))
-                       Text(text = if(category.wordCount>0) "${category.wordCount} Word" else "",style = MaterialTheme.typography.body2,modifier = Modifier.padding(top = 2.dp),fontWeight = FontWeight.Bold, )
-                   }
-                   Row(){
-                       Icon(imageVector = Icons.Filled.Timer, contentDescription ="timelapse 3x1" ,tint = MaterialTheme.colors.primary)
-                       Spacer(modifier = Modifier.width(5.dp))
-                       Text(text = if(category.dayCount>0) "${category.dayCount} Day" else "",style = MaterialTheme.typography.body2,modifier = Modifier.padding(top = 2.dp),fontWeight = FontWeight.Bold, )
-                   }
-
-               }
-           }
-
-       }
+            }
+        }
+    }
 
 
 }

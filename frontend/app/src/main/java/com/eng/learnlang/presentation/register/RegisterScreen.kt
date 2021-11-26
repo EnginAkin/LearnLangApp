@@ -49,6 +49,7 @@ fun RegisterScreen(
                     viewModel.setUsernameText(it)
                 },
                 hint = "Username",
+                keyboardType = KeyboardType.Text,
                 error = viewModel.usernameError.value,
 
             )
@@ -58,6 +59,7 @@ fun RegisterScreen(
                 onValueChange = {
                     viewModel.setemailText(it)
                 },
+                keyboardType = KeyboardType.Email,
                 hint = "E-Mail",
                 error = viewModel.emailError.value,
 

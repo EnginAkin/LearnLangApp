@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         showBottomBar = navBackStackEntry?.destination?.route in listOf<String>(
                             Screen.ProfileScreen.route,
-                            Screen.WordMainFeedScreen.route,
+                            Screen.MyWordMainFeedScreen.route,
                             Screen.LibraryMainScreen.route,
                             Screen.TopicWordScreen.route
                         ),
