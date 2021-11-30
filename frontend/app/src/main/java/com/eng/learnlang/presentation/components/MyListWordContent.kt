@@ -33,14 +33,14 @@ import com.eng.learnlang.util.speak
 import java.util.*
 
 @Composable
-fun WordContent(
-    navController: NavController,
+fun MyListWordContent(
     word: Word,
     indexNumber: Int ,
     addlistClick : (Word) ->Unit={},
     listenClickListener : () -> Unit={}
 ) {
     val applicationContext = LocalContext.current
+
     val verifiedState = remember {
         mutableStateOf(word.verified)
     }
@@ -53,7 +53,7 @@ fun WordContent(
                 .fillMaxWidth()
                 .padding(vertical = 5.dp)
                 .clickable {
-                    clicked.value = !clicked.value
+                    clicked.value= !clicked.value
                 }
                 .border(width = 1.dp, color = Color.White, RoundedCornerShape(10.dp))
                 .background(color = if (clicked.value) MaterialTheme.colors.onSurface else MaterialTheme.colors.onSecondary)
@@ -84,10 +84,8 @@ fun WordContent(
 
         }
         if(clicked.value){
-
-
+            println("${word.word} clicked value =" +clicked.value)
             word.word?.let { speak(it,applicationContext = applicationContext) }
-
             Column(modifier = Modifier
                 .fillMaxWidth()
             ){
@@ -95,6 +93,7 @@ fun WordContent(
                     .fillMaxWidth()
                     .padding(horizontal = 25.dp)) {
                     Column() {
+                        // bayrak iconu
                         Image(painter = painterResource(id = R.drawable.ic_turkey_flag), contentDescription = "turkey flag",modifier = Modifier.padding(12.dp) )
                     }
                     Column {
@@ -111,42 +110,11 @@ fun WordContent(
 
                 }
                 Spacer(modifier=Modifier.height(10.dp))
-
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 4.dp)) {
-                    Column(
-                        Modifier.weight(1f)){
-                        Button(onClick = {
-                            verifiedState.value= true
-                            word.verified=true
-                            addlistClick(word)
-                        },modifier = Modifier.fillMaxWidth()) {
-                            Text(text = "Listeye Ekle",color = Color.White,fontWeight = FontWeight.Bold)
-                        }
-                    }
-                    Column(
-                        Modifier.weight(1f)
-                    ) {
-                        Button(
-                            onClick = {
-                                word.word?.let { speak(text = it,applicationContext) }
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .border(
-                                    0.dp,
-                                    hintgray, RoundedCornerShape(0.dp)
-                                )
-                        ) {
-                            Text(text = "Dinle",color = Color.White,fontWeight = FontWeight.Bold)
-                        }
-                    }
-                }
                 Spacer(modifier = Modifier.height(10.dp))
                 Divider(color = Color.White,thickness = 0.8.dp)
 
             }
+
         }
     }
 

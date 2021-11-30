@@ -34,28 +34,28 @@ fun TopicWordDetailScreen(
             learnedCountWord = 8
         ),
         TopicWordDay(
-            categoryName = "A-2",
+            categoryName = "A-1",
             1,
             learnedCountWord = 5
         ),
         TopicWordDay(
-            categoryName = "B-1",
+            categoryName = "A-1",
             2,
             learnedCountWord = 4
         ), TopicWordDay(
-            categoryName = "B-2",
+            categoryName = "A-1",
             3,
             learnedCountWord = 9
         ), TopicWordDay(
-            categoryName = "C-1",
+            categoryName = "A-1",
             4,
             learnedCountWord = 1
         ), TopicWordDay(
-            categoryName = "C-2",
+            categoryName = "A-1",
             5,
             learnedCountWord = 3
         ), TopicWordDay(
-            categoryName = "D-1",
+            categoryName = "A-1",
             6,
             learnedCountWord = 10
         )

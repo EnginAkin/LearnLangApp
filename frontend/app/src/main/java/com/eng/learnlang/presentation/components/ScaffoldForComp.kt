@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.Class
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.LibraryBooks
-import androidx.compose.material.icons.outlined.ListAlt
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +30,7 @@ fun ScaffolForComp(
         ),
         BottomNavItem(
             route = Screen.LibraryMainScreen.route,
-            icon = Icons.Outlined.LibraryBooks,
+            icon = Icons.Outlined.LocalLibrary,
             contentDescription = "Library"
         ),
         BottomNavItem(
