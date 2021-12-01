@@ -1,5 +1,6 @@
 package com.eng.learnlang.presentation.util
 
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -8,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.eng.learnlang.domain.model.Word
 import com.eng.learnlang.presentation.TopicWordDetailsScreen.TopicWordDetailScreen
+import com.eng.learnlang.presentation.library_details.LibraryDetailScreen
 import com.eng.learnlang.presentation.library_main_feed.LibraryMainFeedScreen
 import com.eng.learnlang.presentation.login.LoginScreen
 import com.eng.learnlang.presentation.profile.ProfileScreen
@@ -23,9 +25,10 @@ import com.eng.learnlang.presentation.wordlist_word_details.MyWordListDetailScre
 
 @Composable
 fun Navigation(
-    navController: NavHostController
+    navController: NavHostController,
+    scaffoldState: ScaffoldState,
 ) {
-    NavHost(navController = navController, startDestination =Screen.TeachDetailScreen.route ){
+    NavHost(navController = navController, startDestination =Screen.LibraryMainScreen.route ){
 
         composable(Screen.SplashScreen.route){
             SplashScreen(navController = navController)
@@ -48,6 +51,9 @@ fun Navigation(
         composable(Screen.LibraryMainScreen.route){
             LibraryMainFeedScreen(navController = navController)
         }
+        composable(Screen.LibraryDetailScreen.route){
+            LibraryDetailScreen(scaffoldState)
+        }
         composable(Screen.MyWordListDetailScreen.route){
             MyWordListDetailScreen(navController)
         }
@@ -61,16 +67,7 @@ fun Navigation(
         composable(Screen.TeachDetailScreen.route){
             TeachDetailScreen(navController = navController)
         }
-        composable(
-            Screen.TestDetailScreen.route,
-            arguments = listOf(
-                navArgument("wordlistId"){
-                    type= NavType.IntArrayType
-                }
-            )
-        ){
-
-
+        composable(Screen.TestDetailScreen.route,){
             TestScreen(navController = navController)
         }
 

@@ -1,4 +1,4 @@
-package com.eng.learnlang.presentation.test_detail
+package com.eng.learnlang.presentation.teach_detail
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

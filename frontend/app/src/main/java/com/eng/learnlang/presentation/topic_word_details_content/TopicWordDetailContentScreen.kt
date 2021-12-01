@@ -26,6 +26,7 @@ import com.eng.learnlang.domain.model.TopicWordDay
 import com.eng.learnlang.domain.model.Word
 import com.eng.learnlang.presentation.components.StandartToolBar
 import com.eng.learnlang.presentation.components.WordContent
+import com.eng.learnlang.presentation.util.Screen
 
 @Composable
 fun TopicWordDetailContentScreen(
@@ -146,8 +147,10 @@ fun TopicWordDetailContentScreen(
       Spacer(modifier = Modifier.height(20.dp))
       Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
           Row(modifier = Modifier.fillMaxWidth(0.6f)) {
-              Button(onClick = { /*TODO*/ },modifier=Modifier.clip(RoundedCornerShape(20.dp))) {
-                  Text(text = "Start Learning ",style = MaterialTheme.typography.h2)
+              Button(onClick = {
+                               navController.navigate(Screen.TeachDetailScreen.route)
+              },modifier=Modifier.clip(RoundedCornerShape(20.dp))) {
+                  Text(text = "Start Learning",style = MaterialTheme.typography.h2)
                   Icon(imageVector= Icons.Default.SkipNext, contentDescription ="next" ,tint = Color.White,modifier = Modifier.size(40.dp))
               }
           }
