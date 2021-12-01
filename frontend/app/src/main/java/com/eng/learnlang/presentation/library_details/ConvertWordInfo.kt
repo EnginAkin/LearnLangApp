@@ -28,7 +28,7 @@ fun ConverWordInfo(
     val context= LocalContext.current
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(10.dp)) {
+    ) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(
                 modifier = Modifier.weight(2f),
@@ -38,7 +38,8 @@ fun ConverWordInfo(
                     Icon(
                         painter = painterResource(id = com.eng.learnlang.R.drawable.ic_ses_icon),
                         contentDescription = "icon ses",
-                        Modifier.size(24.dp)
+                        Modifier.size(24.dp),
+                        tint=Color.White
                     )
                 }
             }
@@ -56,7 +57,9 @@ fun ConverWordInfo(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "icon close",
-                        Modifier.size(24.dp)
+                        Modifier.size(24.dp),
+                        tint=Color.White
+
                     )
                 }
             }
@@ -68,7 +71,7 @@ fun ConverWordInfo(
         }
         Spacer(modifier = Modifier.height(10.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = onclick) {
+            Button(onClick = onclick, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Kelimelere Ekle", color = Color.White)
             }
         }
