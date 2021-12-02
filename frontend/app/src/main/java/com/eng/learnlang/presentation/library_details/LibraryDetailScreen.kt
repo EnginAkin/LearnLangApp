@@ -103,11 +103,16 @@ fun LibraryDetailScreen(
         TooltipForLibrary(expanded = showTooltip) {
             if (clickedString.value == "process") mean = "İşlemek"
 
-            ConverWordInfo(word = clickedString.value, mean = mean, closeClicked = {
-                showTooltip.value = false
-            }) {
+            ConverWordInfo(
+                word = clickedString.value,
+                mean = mean,
+                closeClicked = {
+                    showTooltip.value = false
+                },
+                onclick = {
 
-            }
+                }
+            )
         }
     }
 
