@@ -6,8 +6,6 @@ import tr.com.english.learnlang.auth.LoginResponse;
 public interface AuthService {
 
      LoginResponse authanticate(Credentials credentials);
-     void clearToken(String authorization);
-     String generationRandomToken();
 
 
 }

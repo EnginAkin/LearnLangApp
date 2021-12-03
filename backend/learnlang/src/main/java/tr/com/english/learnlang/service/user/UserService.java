@@ -9,8 +9,8 @@ import java.util.List;
 public interface UserService {
     GeneralResponse addUser(User user);
     User getUser(Long id);
-
     List<User> getUsers();
     UserInfo getUserInfo(User user);
+    void addRoleToUser(String email,String roleName);
 
 }

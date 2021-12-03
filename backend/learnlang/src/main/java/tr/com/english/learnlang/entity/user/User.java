@@ -4,9 +4,12 @@ package tr.com.english.learnlang.entity.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tr.com.english.learnlang.entity.role.Role;
 import tr.com.english.learnlang.entity.words.Word;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -21,6 +24,9 @@ public class User {
     private String username;
     private String email;
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles;
 
     private Double score;
     @OneToMany(cascade = CascadeType.ALL)

@@ -19,6 +19,7 @@ public class Word {
     private Long id;
     private String name;
     private String mean;
+    private String description;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Sentence> exampleSentence;
     @ManyToOne(cascade =CascadeType.ALL )

@@ -8,14 +8,11 @@ import tr.com.english.learnlang.constant.GeneralResponse;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class LoginResponse extends GeneralResponse {
 
-    private String token ;
 
-    public LoginResponse(String message, Boolean successful, Object element, String token) {
+    public LoginResponse(String message, Boolean successful, Object element) {
         super(message, successful, element);
-        this.token = token;
     }
 }
