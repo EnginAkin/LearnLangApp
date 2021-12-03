@@ -18,6 +18,7 @@ import com.eng.learnlang.core.util.Screen
 fun ScaffolForComp(
     navController: NavController,
     modifier: Modifier=Modifier,
+    state: ScaffoldState,
     showBottomBar : Boolean = true,
 
     bottomNavItems: List<BottomNavItem> = listOf(
@@ -78,7 +79,8 @@ fun ScaffolForComp(
             }
 
         },
-        modifier = modifier
+        modifier = modifier,
+        scaffoldState = state
     ) {
         content()
     }

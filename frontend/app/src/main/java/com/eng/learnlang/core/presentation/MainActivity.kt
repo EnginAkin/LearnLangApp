@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
                             Screen.LibraryMainScreen.route,
                             Screen.TopicWordScreen.route
                         ),
+                        state=scaffoldState,
                         modifier = Modifier.fillMaxSize()
                     ) {
                         Navigation(navController,scaffoldState)

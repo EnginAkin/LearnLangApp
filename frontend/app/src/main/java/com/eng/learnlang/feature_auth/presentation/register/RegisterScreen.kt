@@ -2,10 +2,9 @@ package com.eng.learnlang.feature_auth.presentation.register
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,16 +21,31 @@ import com.eng.learnlang.core.presentation.ui.theme.SpaceLarge
 import com.eng.learnlang.core.presentation.ui.theme.SpaceMedium
 import com.eng.learnlang.core.util.Constants.MIN_USERNAME_LENGTH
 import com.eng.learnlang.feature_auth.domain.model.AuthErrors
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
 fun RegisterScreen(
     navController: NavController,
+    scaffoldState: ScaffoldState,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val usernameState= viewModel.usernameState.value
     val passwordState= viewModel.passwordState.value
     val emailState= viewModel.emailState.value
+    val registerState= viewModel.registerState.value
+
+    LaunchedEffect(key1 = true ){
+        viewModel.eventFlow.collectLatest { event ->
+            when(event){
+                is RegisterViewModel.UiEvent.SnackbarEvent ->{
+                    scaffoldState.snackbarHostState.showSnackbar(event.message, duration = SnackbarDuration.Long)
+                }
+            }
+
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             verticalArrangement = Arrangement.Center, modifier = Modifier
@@ -113,14 +127,21 @@ fun RegisterScreen(
                 showPasswordToggle = passwordState.isVisible
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
-            Button(modifier = Modifier.align(Alignment.End), onClick = {
-                viewModel.onEvent(RegisterEvent.Register)
-            }) {
+            Button(
+                modifier = Modifier.align(Alignment.End),
+                enabled = !registerState.isLoading,
+                onClick = {
+                    viewModel.onEvent(RegisterEvent.Register)
+                }
+            ) {
                 Text(
                     text = "Register",
                     color = Color.Black
 
                 )
+            }
+            if(registerState.isLoading){
+                CircularProgressIndicator()
             }
         }
         Text(text = buildAnnotatedString {

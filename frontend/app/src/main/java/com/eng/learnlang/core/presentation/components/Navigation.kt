@@ -35,7 +35,7 @@ fun Navigation(
             LoginScreen(navController)
         }
         composable(Screen.RegisterScreen.route){
-            RegisterScreen(navController = navController)
+            RegisterScreen(navController = navController,scaffoldState)
         }
         composable(Screen.TopicWordScreen.route){
             TopicWords(navController = navController)
