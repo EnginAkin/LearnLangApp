@@ -1,50 +1,109 @@
 package com.eng.learnlang.presentation.register
 
+import android.util.Patterns
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.eng.learnlang.util.Constants.MIN_PASSWORD_LENGTH
+import com.eng.learnlang.util.Constants.MIN_USERNAME_LENGTH
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor() : ViewModel() {
-    private val _usernameText = mutableStateOf("")
-    val usernameText: State<String> = _usernameText
+    private val _registerState = mutableStateOf(RegisterState())
+    val registerState: State<RegisterState> = _registerState
 
-    private val _emailText = mutableStateOf("")
-    val emailText: State<String> = _emailText
+    fun onEvent(event: RegisterEvent) {
+        when (event) {
+            is RegisterEvent.EnteredUsername -> {
+                _registerState.value=_registerState.value.copy(
+                    usernameText = event.username
+                )
+            }
+            is RegisterEvent.TogglePasswordVisibility->{
+                _registerState.value=_registerState.value.copy(
+                    isPasswordVisible = !registerState.value.isPasswordVisible
+                )
+            }
+            is RegisterEvent.EnteredEmail -> {
+                _registerState.value=_registerState.value.copy(
+                    emailText = event.email
+                )            }
+            is RegisterEvent.EnteredPassword -> {
+                _registerState.value=_registerState.value.copy(
+                    passwordText = event.password
+                )}
+            is RegisterEvent.Register -> {
+                validateUsername(registerState.value.usernameText)
+                validateEmail(registerState.value.emailText)
+                validatePassoword(registerState.value.passwordText)
 
-    private val _passwordText = mutableStateOf("")
-    val passwordText: State<String> = _passwordText
-
-    private val _usernameError = mutableStateOf("")
-    val usernameError: State<String> = _usernameError
-
-    private val _emailError= mutableStateOf("")
-    val emailError: State<String> = _emailError
-
-    private val _passwordError = mutableStateOf("")
-    val passwordError: State<String> = _passwordError
-
-
-    fun setUsernameText(username : String){
-        _usernameText.value=username
+            }
+        }
     }
-    fun setpasswordText(password : String){
-        _passwordText.value=password
+    private fun validateUsername(value : String){
+        val trimmedUsername = value.trim()
+        if(trimmedUsername.isBlank()){
+            _registerState.value=_registerState.value.copy(
+                usernameError = RegisterState.UsernameError.FieldEmpty
+            )
+            return
+        }
+        if(trimmedUsername.length < MIN_USERNAME_LENGTH){
+            _registerState.value=_registerState.value.copy(
+                usernameError = RegisterState.UsernameError.InputTooShort
+            )
+            return
+        }
+        _registerState.value=_registerState.value.copy(
+            usernameError = null
+        )
     }
-    fun setemailText(emailText : String){
-        _emailText.value=emailText
+    private fun validateEmail(value : String){
+        val trimmedEmail = value.trim()
+        if(trimmedEmail.isBlank()){
+            _registerState.value=_registerState.value.copy(
+                emailError = RegisterState.EmailError.FieldEmpty
+            )
+            return
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(value).matches()){
+            _registerState.value=_registerState.value.copy(
+                emailError = RegisterState.EmailError.InvalidEmail
+            )
+            return
+        }
+        _registerState.value=_registerState.value.copy(
+            emailError = null
+        )
+    }
+    private fun validatePassoword(value : String){
+        val trimmedEmail = value.trim()
+        if(trimmedEmail.isBlank()){
+            _registerState.value=_registerState.value.copy(
+                passwordError = RegisterState.PasswordError.FieldEmpty
+            )
+            return
+        }
+        if(value.length < MIN_PASSWORD_LENGTH){
+            _registerState.value=_registerState.value.copy(
+                passwordError = RegisterState.PasswordError.InputTooShort
+            )
+            return
+        }
+        val capitalLetterInPassword=value.any{it.isUpperCase()}
+        val numberInPassword=value.any { it.isDigit() }
+        if(!capitalLetterInPassword || !numberInPassword){
+            _registerState.value=_registerState.value.copy(
+                passwordError = RegisterState.PasswordError.InvalidPassword
+            )
+            return
+        }
+        _registerState.value=_registerState.value.copy(
+            passwordError = null
+        )
     }
 
-    fun setUsernameError(usernameError : String){
-        _usernameError.value=usernameError
-    }
-    fun setpasswordError(passwordError : String){
-        _passwordError.value=passwordError
-    }
-    fun setEmailError(emailError : String){
-        _emailError.value=emailError
-    }
 
 }

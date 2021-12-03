@@ -28,7 +28,7 @@ fun Navigation(
     navController: NavHostController,
     scaffoldState: ScaffoldState,
 ) {
-    NavHost(navController = navController, startDestination =Screen.LibraryMainScreen.route ){
+    NavHost(navController = navController, startDestination =Screen.SplashScreen.route ){
 
         composable(Screen.SplashScreen.route){
             SplashScreen(navController = navController)
