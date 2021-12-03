@@ -21,6 +21,7 @@ import com.eng.learnlang.core.presentation.components.StandartTextField
 import com.eng.learnlang.core.presentation.ui.theme.SpaceLarge
 import com.eng.learnlang.core.presentation.ui.theme.SpaceMedium
 import com.eng.learnlang.core.util.Constants.MIN_USERNAME_LENGTH
+import com.eng.learnlang.feature_auth.domain.model.AuthErrors
 
 
 @Composable
@@ -28,7 +29,9 @@ fun RegisterScreen(
     navController: NavController,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
-    val state = viewModel.registerState.value
+    val usernameState= viewModel.usernameState.value
+    val passwordState= viewModel.passwordState.value
+    val emailState= viewModel.emailState.value
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             verticalArrangement = Arrangement.Center, modifier = Modifier
@@ -46,59 +49,59 @@ fun RegisterScreen(
             Text(text = "Register", style = MaterialTheme.typography.h1)
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandartTextField(
-                text = state.usernameText,
+                text = usernameState.text,
                 onValueChange = { username ->
                     viewModel.onEvent(RegisterEvent.EnteredUsername(username))
                 },
                 hint = "Username",
                 keyboardType = KeyboardType.Text,
-                error = when (state.usernameError) {
-                    RegisterState.UsernameError.FieldEmpty -> {
+                error = when (usernameState.error) {
+                    is AuthErrors.FieldEmpty -> {
                         "Username Cannot be null"
                     }
-                    RegisterState.UsernameError.InputTooShort -> {
+                    is AuthErrors.InputTooShort -> {
                         "Username is too short, min length is : "+MIN_USERNAME_LENGTH
                     }
-                    null -> ""
+                    else -> ""
                 },
 
                 )
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandartTextField(
-                text = state.emailText,
+                text = emailState.text,
                 onValueChange = { email ->
                     viewModel.onEvent(RegisterEvent.EnteredEmail(email))
                 },
                 keyboardType = KeyboardType.Email,
                 hint = "E-Mail",
-                error = when (state.emailError) {
-                    RegisterState.EmailError.FieldEmpty ->{
+                error = when (emailState.error) {
+                   is AuthErrors.FieldEmpty ->{
                         "Field Cannot be null"
                     }
-                    RegisterState.EmailError.InvalidEmail ->{
+                    is AuthErrors.InvalidEmail ->{
                         "This email is invalid"
                     }
-                    null-> ""
+                    else -> ""
                 },
 
                 )
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandartTextField(
-                text = state.passwordText,
+                text = passwordState.text,
                 onValueChange = {
                     viewModel.onEvent(RegisterEvent.EnteredPassword(it))
                 },
                 hint = "Password",
                 keyboardType = KeyboardType.Password,
-                error = when (state.passwordError) {
-                    is  RegisterState.PasswordError.FieldEmpty -> {
-                        "Field Cannot be null"
+                error = when (passwordState.error) {
+                    is  AuthErrors.FieldEmpty -> {
+                        "Field can't be null"
                     }
-                    is  RegisterState.PasswordError.InvalidPassword -> {
+                    is  AuthErrors.InvalidPassword -> {
                         "Password needs to containt at least one upper case one digit"
                     }
-                    is  RegisterState.PasswordError.InputTooShort -> {
+                    is  AuthErrors.InputTooShort -> {
                         "this input too short"
                     }
                     else -> ""
@@ -107,7 +110,7 @@ fun RegisterScreen(
                     viewModel.onEvent(RegisterEvent.TogglePasswordVisibility)
                 },
                 isPasswordToggleDisplayed = true,
-                showPasswordToggle = state.isPasswordVisible
+                showPasswordToggle = passwordState.isVisible
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             Button(modifier = Modifier.align(Alignment.End), onClick = {
