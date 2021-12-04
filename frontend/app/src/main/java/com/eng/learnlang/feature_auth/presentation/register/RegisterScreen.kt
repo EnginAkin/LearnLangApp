@@ -39,7 +39,7 @@ fun RegisterScreen(
         viewModel.eventFlow.collectLatest { event ->
             when(event){
                 is RegisterViewModel.UiEvent.SnackbarEvent ->{
-                    scaffoldState.snackbarHostState.showSnackbar(event.message, duration = SnackbarDuration.Long)
+                    scaffoldState.snackbarHostState.showSnackbar(event.message, duration = SnackbarDuration.Short)
                 }
             }
 

@@ -64,105 +64,68 @@ class RegisterViewModel @Inject constructor(
 
             }
             is RegisterEvent.Register -> {
-                validateUsername(usernameState.value.text)
-                validateEmail(emailState.value.text)
-                validatePassoword(passwordState.value.text)
                 register()
             }
         }
     }
     private fun register(){
-        if(emailState.value.error !=null || usernameState.value.error !=null || passwordState.value.error !=null){
-            return
-        }
+        _registerState.value=RegisterState(isLoading = true)
+
+        _usernameState.value= _usernameState.value.copy(
+            error = null
+        )// içerdeki tüm değerleri null a çevirir
+        _emailState.value=_emailState.value.copy(
+            error = null
+        )
+        _passwordState.value=_passwordState.value.copy(
+            error = null
+        )
         viewModelScope.launch {
-            _registerState.value= RegisterState(isLoading = true)
-            val result= registerUseCase(
+            val registerResult= registerUseCase(
                 email = emailState.value.text,
                 username = usernameState.value.text,
                 password = passwordState.value.text
             )
-            when(result){
+            if(registerResult.emailError!=null){
+                _emailState.value=_emailState.value.copy(
+                    error = registerResult.emailError
+                )
+
+            }
+            if(registerResult.usernameError!=null){
+                _usernameState.value=_usernameState.value.copy(
+                    error = registerResult.usernameError
+                )
+            }
+            if(registerResult.passswordError!=null){
+                _passwordState.value=_passwordState.value.copy(
+                    error = registerResult.passswordError
+                )
+            }
+            when(registerResult.result){
                 is Resource.Error ->{
-                    result.message?.let { message ->
+                    registerResult.result.message?.let { message ->
                         _eventFlow.emit(UiEvent.SnackbarEvent(message))
                         _registerState.value=RegisterState(isLoading = false)
                     }
                 }
                 is Resource.Success ->{
             _eventFlow.emit(UiEvent.SnackbarEvent("Kayıt Başarılı şekilde tamamlandı. Giriş yap sayfasından giriş yapabilirsiniz"))
-                _registerState.value=RegisterState(isLoading = false)
+                    _registerState.value=RegisterState(isLoading = false)
+                    _usernameState.value= StandartTextFiedlState()// içerdeki tüm değerleri null a çevirir
+                    _emailState.value=StandartTextFiedlState()
+                    _passwordState.value=PasswordTextFieldState()
+
+                }
+                null ->{
+                    _registerState.value=RegisterState(isLoading = false)
+
                 }
 
             }
 
         }
     }
-    private fun validateUsername(value: String) {
-        val trimmedUsername = value.trim()
-        if (trimmedUsername.isBlank()) {
-            _usernameState.value = _usernameState.value.copy(
-                error = AuthErrors.FieldEmpty
-            )
-            return
-        }
-        if (trimmedUsername.length < MIN_USERNAME_LENGTH) {
-            _usernameState.value = _usernameState.value.copy(
-                error = AuthErrors.InputTooShort
-            )
-            return
-        }
-        _usernameState.value = _usernameState.value.copy(
-            error = null
-        )
-    }
-
-    private fun validateEmail(value: String) {
-        val trimmedEmail = value.trim()
-        if (trimmedEmail.isBlank()) {
-            _emailState.value = _emailState.value.copy(
-                error = AuthErrors.FieldEmpty
-            )
-            return
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
-            _emailState.value = _emailState.value.copy(
-                error = AuthErrors.InvalidEmail
-            )
-            return
-        }
-        _emailState.value = _emailState.value.copy(
-            error = null
-        )
-    }
-
-    private fun validatePassoword(value: String) {
-        if (value.isBlank()) {
-            _passwordState.value = _passwordState.value.copy(
-                error = AuthErrors.FieldEmpty
-            )
-            return
-        }
-        if (value.length < MIN_PASSWORD_LENGTH) {
-            _passwordState.value = _passwordState.value.copy(
-                error = AuthErrors.InputTooShort
-            )
-            return
-        }
-        val capitalLetterInPassword = value.any { it.isUpperCase() }
-        val numberInPassword = value.any { it.isDigit() }
-        if (!capitalLetterInPassword || !numberInPassword) {
-            _passwordState.value = _passwordState.value.copy(
-                error = AuthErrors.InvalidPassword
-            )
-            return
-        }
-        _passwordState.value = _passwordState.value.copy(
-            error = null
-        )
-    }
-
-
     sealed class UiEvent{
         data class  SnackbarEvent(val message : String): UiEvent()
     }
