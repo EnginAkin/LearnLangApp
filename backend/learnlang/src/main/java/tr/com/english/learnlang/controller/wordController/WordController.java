@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import tr.com.english.learnlang.constant.GeneralResponse;
 import tr.com.english.learnlang.dao.WordDao;
 import tr.com.english.learnlang.entity.category.Category;
+import tr.com.english.learnlang.entity.responseEntity.ResponseWordCategories;
 import tr.com.english.learnlang.entity.user.User;
 import tr.com.english.learnlang.entity.words.Word;
 import tr.com.english.learnlang.service.category.CategoryService;
@@ -43,8 +44,8 @@ public class WordController {
     }
 
     @GetMapping("/getCategoriesWithInfo")
-    GeneralResponse getCategoriesWithWordCount(){
-        return new GeneralResponse("başarılı",true,wordService.getResponseCategories());
+    List<ResponseWordCategories> getCategoriesWithWordCount(){
+        return  wordService.getResponseCategories();
     }
 
     @GetMapping("/getWordsByCategoryNameAndWithPage/{categoryName}/{pageNumber}/{limit}")
