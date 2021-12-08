@@ -43,14 +43,15 @@ public class AuthController {
               Authentication auth = authenticationManager.authenticate(token);
               SecurityContextHolder.getContext().setAuthentication(auth);
               String jwtToken=jwtTokenProvider.generateJWTToken(auth);
-
-            return new GeneralResponse("başarılı",true,"Bearer "+jwtToken);
+            return new GeneralResponse("Bearer "+jwtToken,true);
         } catch (Exception e) {
             log.info("crashed : exception : {}", e.getMessage());
             return new GeneralResponse("Giriş başarısız.", false);
         }
 
     }
+
+
 
     @PostMapping("signup")
     public GeneralResponse addUser(@RequestBody User user) {

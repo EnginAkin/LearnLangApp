@@ -30,25 +30,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
          try {
              String jwtToken=extractJwtFromRequest(request);
+             System.out.println("Gelen token is : "+jwtToken);
              System.out.println("jwt token :Ç "+jwtToken);
              if(StringUtils.hasText(jwtToken) && jwtTokenProvider.validateToken(jwtToken)){
-                 System.out.println("girdim 1");
 
                  String name = jwtTokenProvider.getUserIdFromJwt(jwtToken);
                  UserDetails user = userDetailsService.loadUserByUsername(name);
-                 System.out.println("username : "+user.getUsername());
                 if(user !=null){
-                    System.out.println("girdim 2");
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
              }else{
-                 System.out.println("girdim 3");
 
              }
          }catch (Exception e){
-             System.out.println("hata ile karşılatıl JWTTOKENAUThantication filter" +e.getLocalizedMessage());
              return;
          }
          filterChain.doFilter(request,response);
@@ -58,7 +54,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private String extractJwtFromRequest(HttpServletRequest request) {
         String bearer=request.getHeader("Authorization");
         if(StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
-            System.out.println("girdim");
             return bearer.substring("Bearer".length() + 1);
         }
         return null;

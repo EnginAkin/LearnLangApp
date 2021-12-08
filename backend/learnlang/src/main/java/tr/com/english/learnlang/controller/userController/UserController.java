@@ -40,7 +40,10 @@ public class UserController {
         return ResponseEntity.ok(userService.getUsers());
     }
 
-
+    @GetMapping("authanticate")
+    GeneralResponse authenticateUser() {
+        return new GeneralResponse("başarılı",true);
+    }
 
     @GetMapping("/user/{id}/words")
     public List<Word> getWordsUser(@PathVariable("id") Long id){

@@ -30,14 +30,19 @@ public class JwtTokenProvider {
             System.out.println("validate token :  "+!isTokenExpired(token));
             return !isTokenExpired(token);
         }catch (SignatureException e){
+            System.out.println("sorun1");
             return false;
         }catch (MalformedJwtException e){
+            System.out.println("sorun2");
             return false;
         }catch (ExpiredJwtException e){
+            System.out.println("sorun3");
             return false;
         }catch (UnsupportedJwtException e){
+            System.out.println("sorun3");
             return false;
         }catch (IllegalArgumentException e){
+            System.out.println("sorun5");
             return false;
         }
     }
