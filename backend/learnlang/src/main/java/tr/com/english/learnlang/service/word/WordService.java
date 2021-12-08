@@ -1,6 +1,7 @@
 package tr.com.english.learnlang.service.word;
 
 import tr.com.english.learnlang.entity.category.Category;
+import tr.com.english.learnlang.entity.responseEntity.ResponseWordCategories;
 import tr.com.english.learnlang.entity.words.Word;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface WordService {
     List<Word> getWordsByCategoryNameAndpageble(String categoryName,int pageNumber,int limit);
     void addWordToUser(Long wordId,Long userId);
     void addWord(Word word);
-
     List<Word> getWordsByUserId(Long id);
+
+    List<ResponseWordCategories> getResponseCategories();
 }

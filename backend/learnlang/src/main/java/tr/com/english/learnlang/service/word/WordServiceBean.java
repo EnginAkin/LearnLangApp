@@ -9,6 +9,7 @@ import tr.com.english.learnlang.dao.CategoryDao;
 import tr.com.english.learnlang.dao.UserDao;
 import tr.com.english.learnlang.dao.WordDao;
 import tr.com.english.learnlang.entity.category.Category;
+import tr.com.english.learnlang.entity.responseEntity.ResponseWordCategories;
 import tr.com.english.learnlang.entity.user.User;
 import tr.com.english.learnlang.entity.words.Word;
 
@@ -84,5 +85,29 @@ public class WordServiceBean implements WordService {
             return userDao.getById(id).getKelimeList();
         }
         return null;
+    }
+
+    @Override
+    public List<ResponseWordCategories> getResponseCategories() {
+        List<Category>  categories=getCategories();
+        List<ResponseWordCategories> responseWordCategories=new ArrayList<>();
+        int wordCount =0;
+        for (Category category :categories ) {
+            wordCount=getWordsByCategoryName(category.getCategoryName()).size();
+            if(wordCount==0){
+                responseWordCategories.add(new ResponseWordCategories(
+                        category.getCategoryName(),
+                        category.getCategoryDescription(),
+                        0,0
+                ));
+            }else{
+                responseWordCategories.add(new ResponseWordCategories(
+                        category.getCategoryName(),
+                        category.getCategoryDescription(),
+                        wordCount,wordCount/10
+                ));
+            }
+        }
+        return responseWordCategories;
     }
 }

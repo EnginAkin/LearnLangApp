@@ -3,6 +3,7 @@ package tr.com.english.learnlang.controller.wordController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tr.com.english.learnlang.constant.GeneralResponse;
 import tr.com.english.learnlang.dao.WordDao;
 import tr.com.english.learnlang.entity.category.Category;
 import tr.com.english.learnlang.entity.user.User;
@@ -39,6 +40,11 @@ public class WordController {
     @GetMapping("/getCategories")
     List<Category> getCategories(){
         return categoryService.getCategories();
+    }
+
+    @GetMapping("/getCategoriesWithInfo")
+    GeneralResponse getCategoriesWithWordCount(){
+        return new GeneralResponse("başarılı",true,wordService.getResponseCategories());
     }
 
     @GetMapping("/getWordsByCategoryNameAndWithPage/{categoryName}/{pageNumber}/{limit}")
