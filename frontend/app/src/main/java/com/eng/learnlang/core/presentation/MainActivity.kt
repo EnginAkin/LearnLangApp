@@ -15,6 +15,7 @@ import com.eng.learnlang.core.presentation.components.ScaffolForComp
 import com.eng.learnlang.core.presentation.ui.theme.LearnlangTheme
 import com.eng.learnlang.presentation.util.Navigation
 import com.eng.learnlang.core.util.Screen
+import com.eng.learnlang.core.util.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LearnlangTheme {
                 // A surface container using the 'background' color from the theme
+                println("Util test : ip 4 adress : ${Utils.getIPAddress(true)}")
                 Surface(
                     color = MaterialTheme.colors.background,
                     modifier = Modifier.fillMaxSize(),

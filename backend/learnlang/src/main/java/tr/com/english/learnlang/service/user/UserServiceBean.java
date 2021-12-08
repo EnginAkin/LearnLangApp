@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tr.com.english.learnlang.constant.GeneralResponse;
@@ -29,33 +30,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UserServiceBean implements UserService, UserDetailsService {
+public class UserServiceBean implements UserService {
     @Autowired
     private UserDao userDao;
     @Autowired
-    private CategoryDao categoryDao;
-    @Autowired
     private RoleDao roleDao;
-    @Autowired
     private final PasswordEncoder passwordEncoder;
 
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userDao.getUserByEmail(email);
-        if(user==null){
-            log.info("user not found in database  {} ",email);
-            throw new UsernameNotFoundException("user not found in database");
-        }else{
-            log.info("user  found in database  {} ",email);
-
-        }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        });
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorities);
-    }
 
     @Override
     public GeneralResponse addUser(User user) {
@@ -87,7 +69,7 @@ public class UserServiceBean implements UserService, UserDetailsService {
     @Override
     public UserInfo getUserInfo(User user) {
         log.info("convert user to user ınfo for fronted  ");
-        return new UserInfo(user.getUsername(),user.getEmail());
+        return new UserInfo(user.getEmail(),user.getUsername());
     }
 
     @Override

@@ -24,11 +24,11 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private Double score;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
-    private Double score;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Word> kelimeList;
 

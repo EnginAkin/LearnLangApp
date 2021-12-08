@@ -28,7 +28,8 @@ public class AuthServiceBean implements AuthService{
     public LoginResponse authanticate(Credentials credentials) {
         User user= userDao.getUserByEmail(credentials.getEmail());
         if(user !=null){
-            boolean passwordMatched = credentials.getPassword().equals(user.getPassword());
+
+            boolean passwordMatched = passwordEncoder.encode(credentials.getPassword()).equals(user.getPassword());
             if(passwordMatched){
                 LoginResponse loginResponse=new LoginResponse("Giriş Başarılı...",true,userService.getUserInfo(user));
                 return loginResponse;

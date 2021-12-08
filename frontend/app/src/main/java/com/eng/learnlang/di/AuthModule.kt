@@ -1,9 +1,11 @@
 package com.eng.learnlang.di
 
+import android.content.SharedPreferences
 import com.eng.learnlang.feature_auth.data.remote.AuthApi
 import com.eng.learnlang.feature_auth.data.remote.AuthApi.Companion.BASE_URL
 import com.eng.learnlang.feature_auth.data.repository.AuthRepositoryImpl
 import com.eng.learnlang.feature_auth.domain.repository.AuthRepository
+import com.eng.learnlang.feature_auth.domain.use_case.LoginUseCase
 import com.eng.learnlang.feature_auth.domain.use_case.RegisterUseCase
 import dagger.Module
 import dagger.Provides
@@ -31,10 +33,12 @@ object AuthModule {
             .create(AuthApi::class.java)
     }
 
+
+
     @Provides
     @Singleton
-    fun provideAuthRepository(api : AuthApi) :AuthRepository{
-        return AuthRepositoryImpl(api)
+    fun provideAuthRepository(api : AuthApi,sharedPreferences: SharedPreferences) :AuthRepository{
+        return AuthRepositoryImpl(api,sharedPreferences)
     }
 
     @Provides
@@ -43,6 +47,11 @@ object AuthModule {
         return RegisterUseCase(repository)
     }
 
+    @Provides
+    @Singleton
+    fun provideLoginUseCase(repository : AuthRepository) : LoginUseCase{
+        return LoginUseCase(repository)
+    }
 
 
 }

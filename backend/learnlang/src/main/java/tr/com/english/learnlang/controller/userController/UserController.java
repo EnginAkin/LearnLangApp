@@ -36,21 +36,11 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> getUsers(){
-        return userService.getUsers();
+    public ResponseEntity<List<User>> getUsers(){
+        return ResponseEntity.ok(userService.getUsers());
     }
 
 
-    @PostMapping("/signup")
-    public GeneralResponse addUser(@RequestBody User user){
-        try{
-            GeneralResponse generalResponse=userService.addUser(user);
-            userService.addRoleToUser(user.getEmail(),"ROLE_USER");
-            return generalResponse;
-        }catch (Exception e){
-            return new GeneralResponse("giriş başarısız.",false);
-        }
-    }
 
     @GetMapping("/user/{id}/words")
     public List<Word> getWordsUser(@PathVariable("id") Long id){

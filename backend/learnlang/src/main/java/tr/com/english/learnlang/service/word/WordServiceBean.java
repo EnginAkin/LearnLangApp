@@ -67,7 +67,6 @@ public class WordServiceBean implements WordService {
             user.setKelimeList(new ArrayList<Word>());
             user.getKelimeList().add(word);
         }
-
         userDao.save(user);
     }
 

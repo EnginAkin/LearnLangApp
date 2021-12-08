@@ -9,4 +9,6 @@ object Constants {
     const val MAX_CATEGORY_DESCRİPTİON_LINE=4
     const val MIN_USERNAME_LENGTH=3
     const val MIN_PASSWORD_LENGTH=3
+    const val KEY_JWT_TOKEN="jwt_token"
+    const val SHARED_PREFERENCE_NAME="shared_preference"
 }
