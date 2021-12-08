@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import com.eng.learnlang.core.presentation.components.StandartTextField
 import com.eng.learnlang.core.presentation.ui.theme.SpaceLarge
 import com.eng.learnlang.core.presentation.ui.theme.SpaceMedium
+import com.eng.learnlang.core.presentation.util.UiEvent
 import com.eng.learnlang.core.util.Screen
 import com.eng.learnlang.feature_auth.domain.model.AuthErrors
 import kotlinx.coroutines.flow.collectLatest
@@ -37,10 +38,10 @@ fun LoginScreen(
 LaunchedEffect(key1 = true ){
     viewModel.eventFlow.collectLatest { event ->
         when(event){
-            is LoginViewModel.UiEvent.SnackbarEvent ->{
+            is UiEvent.SnackbarEvent ->{
                 scaffoldState.snackbarHostState.showSnackbar(message = event.message,duration = SnackbarDuration.Short)
             }
-            is LoginViewModel.UiEvent.Navigate ->{
+            is UiEvent.Navigate ->{
                 scaffoldState.snackbarHostState.showSnackbar(message = "Giriş Başarılı Yönlendiriliyorsunuz....",duration = SnackbarDuration.Short)
                 navController.navigate(event.route)
             }

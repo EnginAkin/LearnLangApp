@@ -48,12 +48,11 @@ class AuthRepositoryImpl(
             val request= Credential(email, password);
             val response = api.login(request)
             if (response.successful) {
-                response.data?.token?.let { token ->
-                    println("token is : $token")
-                    sharedPreferences.edit()
-                        .putString(KEY_JWT_TOKEN,token)
-                        .apply()
-                }
+              if(response.message!=null){ // tokeni mesajın içinde gönderiyorum
+                  sharedPreferences.edit()
+                      .putString(KEY_JWT_TOKEN,response.message)
+                      .apply()
+              }
 
                 Resource.Success(Unit)
             } else {
@@ -66,6 +65,26 @@ class AuthRepositoryImpl(
                 message = "Birşeyler ters gitti ! Servere ulaşılamıyor"
             )
         } catch (e: HttpException) {
+            Resource.Error(
+                message = "please try again e :" + e.localizedMessage
+            )
+        }
+    }
+
+    override suspend fun authenticate(): SimpleResource {
+
+        return try {
+            api.authenticate()
+            println("giriş başarılı")
+
+            Resource.Success(Unit)
+        }catch (e : IOException){
+            println("giriş başarısız 1")
+            Resource.Error(
+                message = "Birşeyler ters gitti ! Servere ulaşılamıyor"
+            )
+        }catch (e: HttpException){
+            println("giriş başarısız 2")
             Resource.Error(
                 message = "please try again e :" + e.localizedMessage
             )

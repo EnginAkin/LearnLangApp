@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eng.learnlang.core.domain.state.PasswordTextFieldState
 import com.eng.learnlang.core.domain.state.StandartTextFiedlState
+import com.eng.learnlang.core.presentation.util.UiEvent
 import com.eng.learnlang.core.util.Constants.MIN_PASSWORD_LENGTH
 import com.eng.learnlang.core.util.Constants.MIN_USERNAME_LENGTH
 import com.eng.learnlang.core.util.Resource
@@ -126,7 +127,5 @@ class RegisterViewModel @Inject constructor(
 
         }
     }
-    sealed class UiEvent{
-        data class  SnackbarEvent(val message : String): UiEvent()
-    }
+
 }

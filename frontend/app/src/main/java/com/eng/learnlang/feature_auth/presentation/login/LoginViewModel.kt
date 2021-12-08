@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eng.learnlang.core.domain.state.PasswordTextFieldState
 import com.eng.learnlang.core.domain.state.StandartTextFiedlState
+import com.eng.learnlang.core.presentation.util.UiEvent
 import com.eng.learnlang.core.util.Resource
 import com.eng.learnlang.core.util.Screen
 import com.eng.learnlang.feature_auth.domain.use_case.LoginUseCase
@@ -94,9 +95,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    sealed class UiEvent{
-        data class  SnackbarEvent(val message : String): UiEvent()
-        data class  Navigate(val route : String): UiEvent()
-    }
+
 
 }

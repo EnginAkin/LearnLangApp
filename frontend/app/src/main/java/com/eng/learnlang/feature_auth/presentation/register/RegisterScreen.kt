@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import com.eng.learnlang.core.presentation.components.StandartTextField
 import com.eng.learnlang.core.presentation.ui.theme.SpaceLarge
 import com.eng.learnlang.core.presentation.ui.theme.SpaceMedium
+import com.eng.learnlang.core.presentation.util.UiEvent
 import com.eng.learnlang.core.util.Constants.MIN_USERNAME_LENGTH
 import com.eng.learnlang.feature_auth.domain.model.AuthErrors
 import kotlinx.coroutines.flow.collectLatest
@@ -38,7 +39,7 @@ fun RegisterScreen(
     LaunchedEffect(key1 = true ){
         viewModel.eventFlow.collectLatest { event ->
             when(event){
-                is RegisterViewModel.UiEvent.SnackbarEvent ->{
+                is UiEvent.SnackbarEvent ->{
                     scaffoldState.snackbarHostState.showSnackbar(event.message, duration = SnackbarDuration.Short)
                 }
             }
