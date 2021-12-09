@@ -9,7 +9,7 @@ interface WordsApi {
     suspend fun getCategoriesWithInfo():List<Category>
 
     companion object{
-        const val BASE_URL="http://192.168.1.5:8082"
+        const val BASE_URL="http://192.168.1.8:8082"
 
     }
 }

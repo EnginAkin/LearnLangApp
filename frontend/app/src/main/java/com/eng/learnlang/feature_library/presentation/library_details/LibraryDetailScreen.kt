@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.google.accompanist.flowlayout.SizeMode
@@ -27,6 +28,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun LibraryDetailScreen(
     scaffoldState: ScaffoldState,
+    libraryDetailViewModel: LibraryDetailViewModel= hiltViewModel()
 ) {
     val stringSiir =
         "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
@@ -43,17 +45,16 @@ fun LibraryDetailScreen(
                 "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs."
 
 
+    val state = libraryDetailViewModel.state.value
     val StringArray: List<String> = stringSiir.split(" ")
-    val clicked = remember {
-        mutableStateOf(false)
-    }
+
     val clickedString = remember {
         mutableStateOf("")
     }
     val showTooltip = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
 
-    LaunchedEffect(Unit) { scrollState.animateScrollTo(10000) }
+    LaunchedEffect(Unit) { scrollState.animateScrollTo(0) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,9 +73,8 @@ fun LibraryDetailScreen(
                     text = hashTag,
                     color = Color.Black,
                     modifier = Modifier.clickable {
-                        showTooltip.value = true
-                        clicked.value = true
-                        clickedString.value = hashTag
+                        state.showTooltip=true
+                        state.clickedString=hashTag
                     }
                 )
             }
