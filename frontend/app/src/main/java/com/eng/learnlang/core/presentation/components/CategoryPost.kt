@@ -30,6 +30,7 @@ import com.eng.learnlang.core.util.Constants
 @Composable
 fun CategoryPost(
     category: Category,
+    navController: NavController,
     onClick : ()->Unit
 ) {
 
@@ -92,7 +93,7 @@ fun CategoryPost(
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        text = "${category.wordCount} Word" ,
+                        text = if (category.wordCount > 0) "${category.wordCount} Word" else "",
                         style = MaterialTheme.typography.body2,
                         modifier = Modifier.padding(top = 2.dp),
                         fontWeight = FontWeight.Bold,
@@ -106,7 +107,7 @@ fun CategoryPost(
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        text = "${category.dayCount} Day",
+                        text = if (category.dayCount > 0) "${category.dayCount} Day" else "",
                         style = MaterialTheme.typography.body2,
                         modifier = Modifier.padding(top = 2.dp),
                         fontWeight = FontWeight.Bold,
