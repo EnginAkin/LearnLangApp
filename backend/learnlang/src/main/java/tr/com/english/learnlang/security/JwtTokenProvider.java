@@ -26,17 +26,18 @@ public class JwtTokenProvider {
     }
     public boolean validateToken(String token){
         try{
+            System.out.println("token : "+token);
             Claims claims=extracted(token);
             System.out.println("validate token :  "+!isTokenExpired(token));
             return !isTokenExpired(token);
         }catch (SignatureException e){
-            System.out.println("sorun1");
+            System.out.println("sorun1"+e.getLocalizedMessage());
             return false;
         }catch (MalformedJwtException e){
-            System.out.println("sorun2");
+            System.out.println("sorun2"+e.getLocalizedMessage());
             return false;
         }catch (ExpiredJwtException e){
-            System.out.println("sorun3");
+            System.out.println("sorun3"+e.getLocalizedMessage());
             return false;
         }catch (UnsupportedJwtException e){
             System.out.println("sorun3");

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.eng.learnlang.core.domain.model.TopicWordDay
 import com.eng.learnlang.core.presentation.components.StandartToolBar
@@ -17,6 +18,7 @@ import com.eng.learnlang.core.presentation.components.TopicWordDayPost
 @Composable
 fun TopicWordDetailScreen(
     navController: NavController,
+    topicWordDetailViewModel: TopicWordDetailViewModel= hiltViewModel()
 ) {
 
     var listOfItems = listOf(

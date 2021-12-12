@@ -97,8 +97,5 @@ dependencies {
     // compose tool tip
     implementation "com.github.skgmn:composetooltip:0.2.0"
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 }

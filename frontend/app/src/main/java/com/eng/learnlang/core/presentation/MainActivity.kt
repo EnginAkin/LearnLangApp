@@ -1,6 +1,8 @@
 package com.eng.learnlang.core.presentation
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,9 +19,15 @@ import com.eng.learnlang.presentation.util.Navigation
 import com.eng.learnlang.core.util.Screen
 import com.eng.learnlang.core.util.Utils
 import dagger.hilt.android.AndroidEntryPoint
+import com.eng.learnlang.feature_library.domain.TranslatorBackgroundTask
+
+
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    var context: Context = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -51,6 +59,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+
     }
+
 }
 

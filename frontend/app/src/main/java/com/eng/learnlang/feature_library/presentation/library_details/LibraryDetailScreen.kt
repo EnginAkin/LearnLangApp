@@ -30,23 +30,10 @@ fun LibraryDetailScreen(
     scaffoldState: ScaffoldState,
     libraryDetailViewModel: LibraryDetailViewModel= hiltViewModel()
 ) {
-    val stringSiir =
-        "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs" +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs." +
-                "Jetpack compose is a modern Android UI toolkit introduced by Google. It simplifies the app development process and speeds it up. With Jetpack Compose, you can write less code compared to the current view building approach – which also means less potential bugs."
-
-
     val state = libraryDetailViewModel.state.value
+    val stringSiir =state.bookContent
     val StringArray: List<String> = stringSiir.split(" ")
+
 
     val clickedString = remember {
         mutableStateOf("")
@@ -73,8 +60,10 @@ fun LibraryDetailScreen(
                     text = hashTag,
                     color = Color.Black,
                     modifier = Modifier.clickable {
-                        state.showTooltip=true
+                        showTooltip.value = true
+                        clickedString.value = hashTag
                         state.clickedString=hashTag
+                        libraryDetailViewModel.onEvent(BookEvent.clickedWord(hashTag))
                     }
                 )
             }
@@ -82,14 +71,13 @@ fun LibraryDetailScreen(
 
 
     }
-    var mean = "Mean"
+
     if (showTooltip.value) {
         TooltipForLibrary(expanded = showTooltip) {
-            if (clickedString.value == "process") mean = "İşlemek"
 
             ConverWordInfo(
                 word = clickedString.value,
-                mean = mean,
+                mean = state.meanForToolTip,
                 closeClicked = {
                     showTooltip.value = false
                 },

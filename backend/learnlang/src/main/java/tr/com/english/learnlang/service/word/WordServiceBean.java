@@ -53,7 +53,8 @@ public class WordServiceBean implements WordService {
         pageNumber=limit*pageNumber;
         limit=pageNumber+limit;
         if(wordlist.size()<limit){
-            return null;
+            System.out.println("Limit list size : "+wordlist.size());
+            return wordlist.subList(pageNumber,wordlist.size());
         }
         return wordlist.subList(pageNumber,limit);
     }

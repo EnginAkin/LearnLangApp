@@ -45,11 +45,12 @@ public class WordController {
 
     @GetMapping("/getCategoriesWithInfo")
     List<ResponseWordCategories> getCategoriesWithWordCount(){
+        System.out.println("categories kısmına girildi");
         return  wordService.getResponseCategories();
     }
 
-    @GetMapping("/getWordsByCategoryNameAndWithPage/{categoryName}/{pageNumber}/{limit}")
-    List<Word> getWordsWithPagination(@PathVariable("categoryName") String categoryName,@PathVariable("pageNumber") int pageNumber,@PathVariable("limit") int limit){
+    @GetMapping("/getWordsByCategoryNameAndWithPage/{categoryName}")
+    List<Word> getWordsWithPagination(@PathVariable("categoryName") String categoryName,@RequestParam("pageNumber") int pageNumber,@RequestParam("limit") int limit){
         return  wordService.getWordsByCategoryNameAndpageble(categoryName,pageNumber,limit);
     }
     @PostMapping("/addCategories")

@@ -3,8 +3,10 @@ package com.eng.learnlang.presentation.util
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.eng.learnlang.core.util.Screen
 import com.eng.learnlang.feature_main.presentation.TopicWordDetailsScreen.TopicWordDetailScreen
 import com.eng.learnlang.feature_library.presentation.library_details.LibraryDetailScreen
@@ -59,7 +61,16 @@ fun Navigation(
         composable(Screen.TopicWordDetailContentScreen.route){
             TopicWordDetailContentScreen(navController)
         }
-        composable(Screen.TopicWordDetailScreen.route){
+        composable(
+            Screen.TopicWordDetailScreen.route+"/{categoryName}",
+            arguments = listOf(
+                navArgument(
+                    name="categoryName"
+                ){
+                    type= NavType.StringType
+                }
+            )
+        ){
             TopicWordDetailScreen(navController = navController)
         }
         composable(Screen.TeachDetailScreen.route){

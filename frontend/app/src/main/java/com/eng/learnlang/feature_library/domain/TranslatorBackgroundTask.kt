@@ -15,7 +15,7 @@ import java.net.URL
 
 
 class TranslatorBackgroundTask internal constructor(ctx: Context) :
-    AsyncTask<String?, Void?, String?>() {
+    AsyncTask<String, Void, String>() {
     //Declare Context
     var ctx: Context
 
@@ -67,14 +67,7 @@ class TranslatorBackgroundTask internal constructor(ctx: Context) :
             inputStream.close()
             httpJsonConnection.disconnect()
 
-            var resultString = allText.toString().trim { it <= ' ' }
-            resultString = resultString.substring(resultString.indexOf('[') + 1)
-            resultString = resultString.substring(0, resultString.indexOf("]"))
-            //Getting the characters between " and "
-            resultString = resultString.substring(resultString.indexOf("\"") + 1)
-            resultString = resultString.substring(0, resultString.indexOf("\""))
-            Log.d("Translation Result:", resultString)
-            return jsonStringBuilder.toString().trim { it <= ' ' }
+            return responseYandexTranslateApi.text
         } catch (e: MalformedURLException) {
             e.printStackTrace()
         } catch (e: IOException) {
