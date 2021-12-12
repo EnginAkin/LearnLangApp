@@ -14,13 +14,14 @@ import androidx.navigation.NavController
 import com.eng.learnlang.core.domain.model.TopicWordDay
 import com.eng.learnlang.core.presentation.components.StandartToolBar
 import com.eng.learnlang.core.presentation.components.TopicWordDayPost
+import com.eng.learnlang.core.util.Screen
 
 @Composable
 fun TopicWordDetailScreen(
     navController: NavController,
     topicWordDetailViewModel: TopicWordDetailViewModel= hiltViewModel()
 ) {
-
+/*
     var listOfItems = listOf(
         TopicWordDay(
             categoryName = "A-1",
@@ -54,6 +55,9 @@ fun TopicWordDetailScreen(
             learnedCountWord = 10
         )
     )
+
+ */
+    val state=topicWordDetailViewModel.state.value
    Column(modifier = Modifier.fillMaxWidth()) {
        StandartToolBar(
            navController = navController,
@@ -65,14 +69,16 @@ fun TopicWordDetailScreen(
 
            )
        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-           itemsIndexed(listOfItems){ i: Int, topicWordDay: TopicWordDay ->
-               TopicWordDayPost(
-                   categoryName = topicWordDay.categoryName,
-                   wordDayCount = topicWordDay.wordDayCount,
-                   learnedCountWord = topicWordDay.learnedCountWord,
-                   navController=navController
-               )
+           state.topicList?.let {
+               itemsIndexed(it.toList()){ i: Int, topicWordDay: TopicWordDay ->
+                   TopicWordDayPost(
+                      topicWordDay=topicWordDay,
+                       onclickListener = {topicWordDay -> 
+                           navController.navigate(Screen.TopicWordDetailContentScreen.route)
+                       }
+                   )
 
+               }
            }
        }
 

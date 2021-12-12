@@ -13,7 +13,11 @@ public interface WordService {
     List<Word> getWordsByCategoryNameAndpageble(String categoryName,int pageNumber,int limit);
     void addWordToUser(Long wordId,Long userId);
     void addWord(Word word);
-    List<Word> getWordsByUserId(Long id);
+    List<Word> getListWordsByUserId(Long id);
 
     List<ResponseWordCategories> getResponseCategories();
+
+    List<Word> getLearnedWordsByUserId(Long id);
+
+    void addWordToUserLearnedList(Long userId, Long wordId);
 }

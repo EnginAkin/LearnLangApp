@@ -22,7 +22,7 @@ import com.eng.learnlang.feature_test.presentation.teach_detail.TestDetailviewMo
 fun TestScreen(
     wordList: List<Word> = listOf(
         Word(
-            word = "Hi",
+            name = "Hi",
             mean = "Merhaba",
             description = "used as an informal way of saying \"hello\"",
             category = Category("A-1","xx",100,10),
@@ -32,7 +32,7 @@ fun TestScreen(
             verified = true
         ),
         Word(
-            word = "What",
+            name = "What",
             mean = "Ne",
             description = "a spoken or written account of a person, object, or event.",
             category = Category("A-1","xx",100,10),
@@ -42,7 +42,7 @@ fun TestScreen(
 
             ),
         Word(
-            word = "Mean",
+            name = "Mean",
             mean = "Anlam",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -50,7 +50,7 @@ fun TestScreen(
             ), verified = true
         ),
         Word(
-            word = "Weather",
+            name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(

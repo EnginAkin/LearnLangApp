@@ -45,7 +45,7 @@ fun TestContent(
         ) {
             Column(Modifier.weight(1f), horizontalAlignment = Alignment.End) {
                 IconButton(onClick = {
-                    CorrectAnswer.word?.let { speak(it, applicationContext) }
+                    CorrectAnswer.name?.let { speak(it, applicationContext) }
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_ses_icon),
@@ -56,7 +56,7 @@ fun TestContent(
             }
             Column(Modifier.weight(8f), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = CorrectAnswer.word!!,
+                    text = CorrectAnswer.name!!,
                     style = MaterialTheme.typography.h1,
                     color = Color.White
                 )

@@ -32,4 +32,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Word> kelimeList;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Word> learnedWordList;
+
 }

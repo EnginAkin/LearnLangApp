@@ -4,6 +4,7 @@ package tr.com.english.learnlang.controller.userController;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tr.com.english.learnlang.constant.GeneralResponse;
@@ -45,9 +46,9 @@ public class UserController {
         return new GeneralResponse("başarılı",true);
     }
 
-    @GetMapping("/user/{id}/words")
-    public List<Word> getWordsUser(@PathVariable("id") Long id){
-        return wordService.getWordsByUserId(id);
+    @GetMapping("/user/wordList/{userId}")
+    public List<Word> getWordsUser(@PathVariable("userId") Long id){
+        return wordService.getListWordsByUserId(id);
     }// Kullanıcının kelimelelerini getir.
 
     @PostMapping("/role/save")
@@ -56,9 +57,22 @@ public class UserController {
     }
     @PostMapping("/role/addtouser")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
-        System.out.println("geldim");
         userService.addRoleToUser(form.getEmail(),form.getRoleName());
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/word/addLearnedList")
+    public ResponseEntity<?> addLearnedList(@RequestParam("userId") Long userId , @RequestParam("wordId") Long wordId){
+        System.out.println("user id : "+userId);
+        System.out.println("word id : "+wordId);
+        wordService.addWordToUserLearnedList(userId,wordId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user/learnedWords")
+    public List<Word> getLearnedUser(@RequestParam("userId") Long id){
+        System.out.println("Girildi getLearnedWords list User Id "+id);
+        return wordService.getLearnedWordsByUserId(id);
     }
 
 

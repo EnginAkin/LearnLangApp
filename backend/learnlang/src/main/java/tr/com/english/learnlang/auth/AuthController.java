@@ -12,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tr.com.english.learnlang.constant.GeneralResponse;
+import tr.com.english.learnlang.entity.responseEntity.ResponseAuth;
 import tr.com.english.learnlang.entity.user.User;
+import tr.com.english.learnlang.entity.user.UserInfo;
 import tr.com.english.learnlang.security.JwtTokenProvider;
 import tr.com.english.learnlang.service.authanticate.AuthService;
 import tr.com.english.learnlang.service.user.UserService;
@@ -36,17 +38,18 @@ public class AuthController {
 
 
     @PostMapping("login")
-    GeneralResponse handleLogin(@RequestBody Credentials credentials) {
+    ResponseAuth handleLogin(@RequestBody Credentials credentials) {
         try {
             log.info("handle login with credential : {}", credentials);
             UsernamePasswordAuthenticationToken token= new UsernamePasswordAuthenticationToken(credentials.getEmail(),credentials.getPassword());
               Authentication auth = authenticationManager.authenticate(token);
               SecurityContextHolder.getContext().setAuthentication(auth);
               String jwtToken=jwtTokenProvider.generateJWTToken(auth);
-            return new GeneralResponse("Bearer "+jwtToken,true);
+              UserInfo userInfo = userService.getUserInfo(userService.getUserByEmail(credentials.getEmail()));
+              return new ResponseAuth("Bearer "+jwtToken,true,userInfo);
         } catch (Exception e) {
             log.info("crashed : exception : {}", e.getMessage());
-            return new GeneralResponse("Giriş başarısız.", false);
+            return new ResponseAuth("Giriş başarısız.", false);
         }
 
     }

@@ -48,9 +48,15 @@ public class WordController {
         System.out.println("categories kısmına girildi");
         return  wordService.getResponseCategories();
     }
+    @GetMapping("/getWordsWithCategoryName")
+    List<Word> getWordsWithCategoryName(@RequestParam("categoryName") String categoryName){
+        System.out.println("getWordsWithCategoryName fun cağrıldı");
+        return  wordService.getWordsByCategoryName(categoryName);
+    }
 
     @GetMapping("/getWordsByCategoryNameAndWithPage/{categoryName}")
     List<Word> getWordsWithPagination(@PathVariable("categoryName") String categoryName,@RequestParam("pageNumber") int pageNumber,@RequestParam("limit") int limit){
+        System.out.println("getWordsWithPagination kısmına girildi");
         return  wordService.getWordsByCategoryNameAndpageble(categoryName,pageNumber,limit);
     }
     @PostMapping("/addCategories")

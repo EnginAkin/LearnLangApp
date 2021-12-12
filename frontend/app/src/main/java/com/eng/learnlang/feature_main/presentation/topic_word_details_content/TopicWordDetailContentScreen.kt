@@ -28,7 +28,7 @@ fun TopicWordDetailContentScreen(
     navController: NavController,
     wordList : List<Word> = listOf(
             Word(
-                word = "Hi",
+                name = "Hi",
                 mean = "Merhaba",
                 category = Category("A-1","xx",100,10),
                 examplaSenctence = listOf(
@@ -37,7 +37,7 @@ fun TopicWordDetailContentScreen(
                 verified = true
             ),
         Word(
-            word = "What",
+            name = "What",
             mean = "Ne",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -46,7 +46,7 @@ fun TopicWordDetailContentScreen(
 
         ),
         Word(
-            word = "Mean",
+            name = "Mean",
             mean = "Anlam",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -54,7 +54,7 @@ fun TopicWordDetailContentScreen(
             ), verified = true
         ),
         Word(
-            word = "Weather",
+            name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -62,7 +62,7 @@ fun TopicWordDetailContentScreen(
             )
         ),
         Word(
-            word = "paper",
+            name = "paper",
             mean = "kağıt",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -70,7 +70,7 @@ fun TopicWordDetailContentScreen(
             )
         ),
         Word(
-            word = "coat",
+            name = "coat",
             mean = "kaban/palto",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -78,7 +78,7 @@ fun TopicWordDetailContentScreen(
             ), verified = true
         ),
         Word(
-            word = "Weather",
+            name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -86,7 +86,7 @@ fun TopicWordDetailContentScreen(
             )
         ),
         Word(
-            word = "paper",
+            name = "paper",
             mean = "kağıt",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -94,7 +94,7 @@ fun TopicWordDetailContentScreen(
             )
         ),
         Word(
-            word = "coat",
+            name = "coat",
             mean = "kaban/palto",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -102,7 +102,7 @@ fun TopicWordDetailContentScreen(
             ), verified = true
         ),
         Word(
-            word = "Weather",
+            name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -110,7 +110,7 @@ fun TopicWordDetailContentScreen(
             )
         ),
         Word(
-            word = "paper",
+            name = "paper",
             mean = "kağıt",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(
@@ -118,7 +118,7 @@ fun TopicWordDetailContentScreen(
             )
         ),
         Word(
-            word = "coat",
+            name = "coat",
             mean = "kaban/palto",
             category = Category("A-1","xx",100,10),
             examplaSenctence = listOf(

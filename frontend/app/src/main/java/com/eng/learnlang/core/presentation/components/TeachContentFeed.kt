@@ -38,11 +38,11 @@ fun TeachContent(
             .fillMaxWidth()
             .padding(10.dp)) {
             Column (Modifier.weight(8f)){
-                Text(text = word.word!!,fontSize = 24.sp, modifier = Modifier.align(Alignment.CenterHorizontally), color = Color.White)
+                Text(text = word.name!!,fontSize = 24.sp, modifier = Modifier.align(Alignment.CenterHorizontally), color = Color.White)
             }
             Column (Modifier.weight(2f)){
                 IconButton(onClick = {
-                    word.word?.let { speak(it,applicationContext) }
+                    word.name?.let { speak(it,applicationContext) }
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_ses_icon),

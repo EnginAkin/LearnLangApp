@@ -21,7 +21,7 @@ interface AuthApi {
     @POST("api/v1/auth/login")
     suspend fun login(
      @Body request: Credential
-    ):GeneralApiResponse
+    ):AuthResponse
 
     @GET("api/v1/authanticate")
     suspend fun authenticate():GeneralApiResponse

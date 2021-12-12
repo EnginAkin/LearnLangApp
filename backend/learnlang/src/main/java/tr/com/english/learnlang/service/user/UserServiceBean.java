@@ -61,6 +61,11 @@ public class UserServiceBean implements UserService {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
+
+    @Override
     public List<User> getUsers() {
         log.info("Get  all user  in  database ");
         return userDao.findAll();
@@ -69,7 +74,7 @@ public class UserServiceBean implements UserService {
     @Override
     public UserInfo getUserInfo(User user) {
         log.info("convert user to user ınfo for fronted  ");
-        return new UserInfo(user.getEmail(),user.getUsername());
+        return new UserInfo(user.getId(),user.getEmail(),user.getUsername());
     }
 
     @Override

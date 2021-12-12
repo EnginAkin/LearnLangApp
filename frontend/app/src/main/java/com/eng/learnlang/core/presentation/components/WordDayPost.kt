@@ -18,18 +18,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.eng.learnlang.core.domain.model.TopicWordDay
 import com.eng.learnlang.core.presentation.ui.theme.hintgray
 import com.eng.learnlang.core.util.Screen
 
 
 @Composable
 fun TopicWordDayPost(
-    categoryName: String,
-    wordDayCount : Int ,
-    learnedCountWord: Int = 0,
-    totalCountWord: Int = 10,
-    navController: NavController,
+    topicWordDay: TopicWordDay,
+    onclickListener: (TopicWordDay)->Unit={}
 ) {
+    val categoryName = topicWordDay.categoryName
+    val wordDayCount =topicWordDay.wordDayCount
+    val learnedCountWord = topicWordDay.learnedCountWord
+    val totalCountWord =topicWordDay.totalWordCount
 
     Box(
         modifier = Modifier
@@ -38,7 +40,7 @@ fun TopicWordDayPost(
             .clip(RoundedCornerShape(20.dp))
             .clickable {
                 if(learnedCountWord/totalCountWord<1){
-                    navController.navigate(Screen.TopicWordDetailContentScreen.route)
+                    onclickListener(topicWordDay)
                 }else null
             }
             .background(color = if(learnedCountWord/totalCountWord==1)MaterialTheme.colors.onSecondary else hintgray)

@@ -57,7 +57,7 @@ fun MyListWordContent(
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),horizontalArrangement = Arrangement.SpaceBetween) {
                 Row(modifier = Modifier.padding(vertical = 9.dp)) {
-                    Text(text = "$indexNumber.${word.word} ",style = MaterialTheme.typography.h2,color = Color.White,fontWeight = FontWeight.Bold)
+                    Text(text = "$indexNumber.${word.name} ",style = MaterialTheme.typography.h2,color = Color.White,fontWeight = FontWeight.Bold)
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically,horizontalArrangement = Arrangement.Center,modifier = Modifier.padding(vertical = 9.dp)) {
@@ -77,8 +77,8 @@ fun MyListWordContent(
 
         }
         if(clicked.value){
-            println("${word.word} clicked value =" +clicked.value)
-            word.word?.let { speak(it,applicationContext = applicationContext) }
+            println("${word.name} clicked value =" +clicked.value)
+            word.name?.let { speak(it,applicationContext = applicationContext) }
             Column(modifier = Modifier
                 .fillMaxWidth()
             ){

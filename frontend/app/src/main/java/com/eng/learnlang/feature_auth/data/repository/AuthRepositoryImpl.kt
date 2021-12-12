@@ -1,6 +1,7 @@
 package com.eng.learnlang.feature_auth.data.repository
 
 import android.content.SharedPreferences
+import com.eng.learnlang.core.util.Constants
 import com.eng.learnlang.core.util.Constants.KEY_JWT_TOKEN
 import com.eng.learnlang.core.util.Resource
 import com.eng.learnlang.core.util.SimpleResource
@@ -47,11 +48,16 @@ class AuthRepositoryImpl(
         return try {
             val request= Credential(email, password);
             val response = api.login(request)
+
             if (response.successful) {
               if(response.message!=null){ // tokeni mesajın içinde gönderiyorum
-                  sharedPreferences.edit()
-                      .putString(KEY_JWT_TOKEN,response.message)
-                      .apply()
+                  println("login id: ${response.userInfo?.id}")
+                  response.userInfo?.id?.let {
+                      sharedPreferences.edit()
+                          .putString(KEY_JWT_TOKEN,response.message)
+                          .putLong(Constants.KEY_USER_ID, it)
+                          .apply()
+                  }
               }
 
                 Resource.Success(Unit)
@@ -61,10 +67,12 @@ class AuthRepositoryImpl(
                 } ?: Resource.Error("Kullanıcı adı veya şifre hatalı")
             }
         } catch (e: IOException) {
+            println("exception :  ${e.localizedMessage}")
             Resource.Error(
                 message = "Birşeyler ters gitti ! Servere ulaşılamıyor"
             )
         } catch (e: HttpException) {
+            println("exception :  ${e.localizedMessage}")
             Resource.Error(
                 message = "please try again e :" + e.localizedMessage
             )
@@ -75,8 +83,6 @@ class AuthRepositoryImpl(
 
         return try {
             api.authenticate()
-            println("giriş başarılı")
-
             Resource.Success(Unit)
         }catch (e : IOException){
             println("giriş başarısız 1")

@@ -3,8 +3,7 @@ package com.eng.learnlang.di
 import com.eng.learnlang.feature_main.data.remote.WordsApi
 import com.eng.learnlang.feature_main.data.repository.CategoryRepositoryImpl
 import com.eng.learnlang.feature_main.domain.repository.CategoryRepository
-import com.eng.learnlang.feature_main.domain.use_case.GetCategoriesUseCase
-import com.eng.learnlang.feature_main.domain.use_case.MainFeedUseCases
+import com.eng.learnlang.feature_main.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,7 +38,10 @@ object WordsModule {
     @Provides
     fun provideMainFeedUseCases(repository: CategoryRepository):MainFeedUseCases{
         return MainFeedUseCases(
-            getCategoriesUseCase = GetCategoriesUseCase(repository)
+            getCategoriesUseCase = GetCategoriesUseCase(repository),
+            getWordDayWithCategoryName = getWordsWithPaginationByCategoryName(repository),
+            getWordsByCategoryName = GetWordsByCategoryName(repository),
+            getUserLearnedWords = GetUserLearnedWords(repository)
         )
     }
 }

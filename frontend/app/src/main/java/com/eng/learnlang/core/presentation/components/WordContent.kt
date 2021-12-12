@@ -59,7 +59,7 @@ fun WordContent(
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),horizontalArrangement = Arrangement.SpaceBetween) {
                 Row(modifier = Modifier.padding(vertical = 9.dp)) {
-                    Text(text = "$indexNumber.${word.word} ",style = MaterialTheme.typography.h2,color = Color.White,fontWeight = FontWeight.Bold)
+                    Text(text = "$indexNumber.${word.name} ",style = MaterialTheme.typography.h2,color = Color.White,fontWeight = FontWeight.Bold)
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically,horizontalArrangement = Arrangement.Center,modifier = Modifier.padding(vertical = 9.dp)) {
@@ -81,7 +81,7 @@ fun WordContent(
         if(clicked.value){
 
 
-            word.word?.let { speak(it,applicationContext = applicationContext) }
+            word.name?.let { speak(it,applicationContext = applicationContext) }
 
             Column(modifier = Modifier
                 .fillMaxWidth()
@@ -125,7 +125,7 @@ fun WordContent(
                     ) {
                         Button(
                             onClick = {
-                                word.word?.let { speak(text = it,applicationContext) }
+                                word.name?.let { speak(text = it,applicationContext) }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
