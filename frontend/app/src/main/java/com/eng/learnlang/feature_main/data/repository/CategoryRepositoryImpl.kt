@@ -5,6 +5,7 @@ import com.eng.learnlang.core.domain.model.TopicWordDay
 import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.util.Constants
 import com.eng.learnlang.core.util.Resource
+import com.eng.learnlang.core.util.SimpleResource
 import com.eng.learnlang.feature_auth.data.remote.request.Credential
 import com.eng.learnlang.feature_main.data.remote.WordsApi
 import com.eng.learnlang.feature_main.domain.repository.CategoryRepository
@@ -73,6 +74,27 @@ class CategoryRepositoryImpl (
             val result = api.getUsersLearnedWords(userId)
             Resource.Success(
                 data = result
+            )
+        }catch (e: IOException) {
+            Resource.Error(
+                message = "Birşeyler ters gitti ! Servere ulaşılamıyor"
+            )
+        } catch (e: HttpException) {
+            Resource.Error(
+                message = "please try again e :" + e.localizedMessage
+            )
+        } catch (e: Exception) {
+            Resource.Error(
+                message =e.localizedMessage
+            )
+        }
+    }
+
+    override suspend fun addUserLearnedWordList(wordId: Long, userId: Long) :SimpleResource{
+        return  try {
+           api.addUserLearnedWordList(wordId,userId)
+            Resource.Success(
+                data = Unit
             )
         }catch (e: IOException) {
             Resource.Error(

@@ -41,7 +41,8 @@ object WordsModule {
             getCategoriesUseCase = GetCategoriesUseCase(repository),
             getWordsWithPaginationByCategoryName = GetWordsWithPaginationByCategoryName(repository),
             getWordsByCategoryName = GetWordsByCategoryName(repository),
-            getUserLearnedWords = GetUserLearnedWords(repository)
+            getUserLearnedWords = GetUserLearnedWords(repository),
+            addLearnedWordListInUserUseCase= AddLearnedWordListInUserUseCase(repository)
         )
     }
 }

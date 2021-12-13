@@ -4,5 +4,6 @@ data class MainFeedUseCases (
     val getCategoriesUseCase: GetCategoriesUseCase,
     val getWordsWithPaginationByCategoryName: GetWordsWithPaginationByCategoryName,
     val getWordsByCategoryName: GetWordsByCategoryName,
-    val getUserLearnedWords:GetUserLearnedWords
+    val getUserLearnedWords:GetUserLearnedWords,
+    val addLearnedWordListInUserUseCase:AddLearnedWordListInUserUseCase
 )

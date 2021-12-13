@@ -59,9 +59,12 @@ class TopicWordDetailContentViewModel @Inject constructor(
     fun onEvent(event: WordContentEvent) {
         when (event) {
             is WordContentEvent.AddListWordClick -> {
+            // TODO Öğrenme Biliyorum tarzında bir buton eklenecek ve ona gore öğrenmeden geçebilecektir.
+            }
+            is WordContentEvent.VerifiedWord -> {
 
             }
-            is WordContentEvent.verifiedWord -> {
+            is WordContentEvent.StartLearning ->{
 
             }
         }
