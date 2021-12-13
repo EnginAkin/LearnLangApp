@@ -31,7 +31,7 @@ fun MyWordListFeedScreen(
             name = "Hi",
             mean = "Merhaba",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "Hi How are you today ? ",sentenceTR = "Hey merhaba bugün nasılsın? ")
             ),
             verified = true
@@ -40,7 +40,7 @@ fun MyWordListFeedScreen(
             name = "What",
             mean = "Ne",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "What is your name",sentenceTR = "Adın ne? ")
             ), verified = true
 
@@ -49,7 +49,7 @@ fun MyWordListFeedScreen(
             name = "Mean",
             mean = "Anlam",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "what do you mean ?",sentenceTR = "ne diyorsun? ")
             ), verified = true
         ),
@@ -57,7 +57,7 @@ fun MyWordListFeedScreen(
             name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "Weather is so bad today so I cant go out home",sentenceTR = "Bugun hava çok kötü olduğu için dışarı çıkamıyorum? ")
             ), verified = true
         ),
@@ -65,7 +65,7 @@ fun MyWordListFeedScreen(
             name = "paper",
             mean = "kağıt",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "We'll need pens, glue, and some paper.",sentenceTR = "kaleme yapıştırıcıya ve kağıda ihtiyacımız olacak "),
             ), verified = true
         ),
@@ -73,7 +73,7 @@ fun MyWordListFeedScreen(
             name = "coat",
             mean = "kaban/palto",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "He was wearing a coat and tie.",sentenceTR = "kot ve kravat giymişti "),
             ), verified = true
         ),
@@ -81,7 +81,7 @@ fun MyWordListFeedScreen(
             name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "Weather is so bad today so I cant go out home",sentenceTR = "Bugun hava çok kötü olduğu için dışarı çıkamıyorum? ")
             ), verified = true
         ),
@@ -89,7 +89,7 @@ fun MyWordListFeedScreen(
             name = "paper",
             mean = "kağıt",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "We'll need pens, glue, and some paper.",sentenceTR = "kaleme yapıştırıcıya ve kağıda ihtiyacımız olacak "),
             ), verified = true
         ),
@@ -97,7 +97,7 @@ fun MyWordListFeedScreen(
             name = "coat",
             mean = "kaban/palto",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "He was wearing a coat and tie.",sentenceTR = "kot ve kravat giymişti "),
             ), verified = true
         ),
@@ -105,7 +105,7 @@ fun MyWordListFeedScreen(
             name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "Weather is so bad today so I cant go out home",sentenceTR = "Bugun hava çok kötü olduğu için dışarı çıkamıyorum? ")
             ), verified = true
         ),
@@ -113,7 +113,7 @@ fun MyWordListFeedScreen(
             name = "paper",
             mean = "kağıt",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "We'll need pens, glue, and some paper.",sentenceTR = "kaleme yapıştırıcıya ve kağıda ihtiyacımız olacak "),
             ), verified = true
         ),
@@ -121,7 +121,7 @@ fun MyWordListFeedScreen(
             name = "coat",
             mean = "kaban/palto",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "He was wearing a coat and tie.",sentenceTR = "kot ve kravat giymişti "),
             ), verified = true
         ),

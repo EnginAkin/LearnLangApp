@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface UserDao extends JpaRepository<User, Long> {
     User getUserByEmail(String email);
-
 }

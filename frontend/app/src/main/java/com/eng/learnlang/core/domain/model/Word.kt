@@ -5,7 +5,8 @@ data class Word(
     val name : String?=null,
     val mean : String?=null,
     val description : String?=null,
-    val examplaSenctence : List<Sentence> ? =null,
+    val exampleSentence : List<Sentence> ? =null,
     val category: Category?=null,
     var verified: Boolean=false
 )
+

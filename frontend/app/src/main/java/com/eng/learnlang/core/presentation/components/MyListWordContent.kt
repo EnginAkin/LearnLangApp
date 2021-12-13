@@ -95,8 +95,8 @@ fun MyListWordContent(
                         }
                         Divider(color = Color.White,thickness = 0.8.dp)
                         Column(modifier = Modifier.padding(10.dp)) {
-                            word.examplaSenctence?.get(0)?.sentenceEN?.let {
-                                    Text(text = word.examplaSenctence[0].sentenceEN!!,style = MaterialTheme.typography.body1,color = Color.White)
+                            word.exampleSentence?.get(0)?.sentenceEN?.let {
+                                    Text(text = word.exampleSentence[0].sentenceEN!!,style = MaterialTheme.typography.body1,color = Color.White)
                             }
                         }
                     }

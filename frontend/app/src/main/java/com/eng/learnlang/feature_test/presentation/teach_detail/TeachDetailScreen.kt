@@ -27,7 +27,7 @@ fun TeachDetailScreen(
             mean = "Merhaba",
             description = "used as an informal way of saying \"hello\"",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "Hi How are you today ? ",sentenceTR = "Hey merhaba bugün nasılsın? ")
             ),
             verified = true
@@ -37,7 +37,7 @@ fun TeachDetailScreen(
             mean = "Ne",
             description = "a spoken or written account of a person, object, or event.",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "What is your name",sentenceTR = "Adın ne? ")
             ),
 
@@ -46,7 +46,7 @@ fun TeachDetailScreen(
             name = "Mean",
             mean = "Anlam",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "what do you mean ?",sentenceTR = "ne diyorsun? ")
             ), verified = true
         ),
@@ -54,7 +54,7 @@ fun TeachDetailScreen(
             name = "Weather",
             mean = "Hava",
             category = Category("A-1","xx",100,10),
-            examplaSenctence = listOf(
+            exampleSentence = listOf(
                 Sentence(sentenceEN = "Weather is so bad today so I cant go out home",sentenceTR = "Bugun hava çok kötü olduğu için dışarı çıkamıyorum? ")
             )
         ),

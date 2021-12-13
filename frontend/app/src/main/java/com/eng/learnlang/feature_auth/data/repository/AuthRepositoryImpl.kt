@@ -51,7 +51,6 @@ class AuthRepositoryImpl(
 
             if (response.successful) {
               if(response.message!=null){ // tokeni mesajın içinde gönderiyorum
-                  println("login id: ${response.userInfo?.id}")
                   response.userInfo?.id?.let {
                       sharedPreferences.edit()
                           .putString(KEY_JWT_TOKEN,response.message)
@@ -67,7 +66,6 @@ class AuthRepositoryImpl(
                 } ?: Resource.Error("Kullanıcı adı veya şifre hatalı")
             }
         } catch (e: IOException) {
-            println("exception :  ${e.localizedMessage}")
             Resource.Error(
                 message = "Birşeyler ters gitti ! Servere ulaşılamıyor"
             )

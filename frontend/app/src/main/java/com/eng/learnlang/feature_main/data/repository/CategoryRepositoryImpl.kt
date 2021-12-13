@@ -16,9 +16,7 @@ class CategoryRepositoryImpl (
         ) :CategoryRepository {
     override suspend fun getCategoriesPost(): Resource<List<Category>> {
         return try {
-            println("fun getcategoriesPost girildi")
             val categories = api.getCategoriesWithInfo()
-            println("cateogries : "+ categories[0])
                 Resource.Success(categories);
             }catch (e: IOException) {
             Resource.Error(
@@ -56,7 +54,6 @@ class CategoryRepositoryImpl (
     override suspend fun getWordsByCategoryName(categoryName: String): Resource<List<Word>> {
         return  try {
             val result = api.getWordsByCategoryName(categoryName)
-            println("get words by category name : result size "+result.size)
             Resource.Success(
                 data = result
             )

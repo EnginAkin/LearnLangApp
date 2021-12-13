@@ -1,6 +1,7 @@
 package com.eng.learnlang.feature_auth.data.remote
 
 import com.eng.learnlang.core.data.dto.response.GeneralApiResponse
+import com.eng.learnlang.core.util.Constants.AUTH_API_BASE_URL
 import com.eng.learnlang.feature_auth.data.remote.request.CreateAccountRequest
 import com.eng.learnlang.feature_auth.data.remote.request.Credential
 import com.eng.learnlang.feature_auth.data.remote.response.AuthResponse
@@ -28,7 +29,7 @@ interface AuthApi {
 
     companion object {
 
-        const val BASE_URL="http://192.168.1.8:8082"
+        const val BASE_URL=AUTH_API_BASE_URL
     }
 
 

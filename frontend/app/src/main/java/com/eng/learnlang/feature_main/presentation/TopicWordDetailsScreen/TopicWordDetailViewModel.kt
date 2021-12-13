@@ -38,7 +38,6 @@ class TopicWordDetailViewModel @Inject constructor(
     init {
         val userId = sharedPreferences.getLong(KEY_USER_ID, 0)
         loadUserLearnedWords(userId)
-        println("user id ? $userId")
         savedStateHandle.get<String>("categoryName")?.let {
             loadTopicWordsDay(it)
         }
@@ -60,7 +59,6 @@ class TopicWordDetailViewModel @Inject constructor(
                     _state.value = _state.value.copy(
                         isLoading = false
                     )
-                    println("result succes : ${_state.value.topicList}")
                 }
                 is Resource.Error -> {
                     _eventFlow.emit(UiEvent.SnackbarEvent("Yüklenirken Sorun Yaşandı"))
@@ -80,7 +78,6 @@ class TopicWordDetailViewModel @Inject constructor(
                     result.data?.forEachIndexed { index, word ->
                         listLearnedWords.add(word)
                     }
-                    println("load learned words : ${result.data}")
 
                 }
                 is Resource.Error -> {
@@ -93,7 +90,7 @@ class TopicWordDetailViewModel @Inject constructor(
         }
     }
 
-    private fun extractWordsByTopicWordDay(data: List<Word>, totalWordCount: Int = 2) :List<TopicWordDay>{
+    private fun extractWordsByTopicWordDay(data: List<Word>, totalWordCount: Int = 5) :List<TopicWordDay>{
         val size = ceil(data.size.toDouble() / totalWordCount).toInt()
 
         val listofTopicWord= mutableListOf<TopicWordDay>()
@@ -103,7 +100,7 @@ class TopicWordDetailViewModel @Inject constructor(
             if (lastIndex > data.size) {
                 lastIndex = data.size
             }
-            val learnedCount = learnedCount(data.subList(i * totalWordCount, lastIndex))
+            val learnedCount = learnedWordCounter(data.subList(i * totalWordCount, lastIndex))
             val topicWordDay = data[i].category?.let {
                 TopicWordDay(
                     it.categoryName,
@@ -120,7 +117,7 @@ class TopicWordDetailViewModel @Inject constructor(
 
     }
 
-    private fun learnedCount(wordList: List<Word>): Int {
+    private fun learnedWordCounter(wordList: List<Word>): Int {
         var totalLearnedCount = 0
         if (listLearnedWords.size > 0) {
             wordList.forEachIndexed { index, word ->

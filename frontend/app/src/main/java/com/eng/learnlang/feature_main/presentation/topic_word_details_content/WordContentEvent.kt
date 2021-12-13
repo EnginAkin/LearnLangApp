@@ -5,5 +5,6 @@ import com.eng.learnlang.core.domain.model.Word
 sealed class WordContentEvent {
     data class verifiedWord(val value: Boolean) : WordContentEvent()
     data class AddListWordClick(val value: Word) : WordContentEvent()
+    object startLearn : WordContentEvent()
 
 }

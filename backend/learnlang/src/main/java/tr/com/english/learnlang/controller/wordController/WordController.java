@@ -56,7 +56,7 @@ public class WordController {
 
     @GetMapping("/getWordsByCategoryNameAndWithPage/{categoryName}")
     List<Word> getWordsWithPagination(@PathVariable("categoryName") String categoryName,@RequestParam("pageNumber") int pageNumber,@RequestParam("limit") int limit){
-        System.out.println("getWordsWithPagination kısmına girildi");
+        System.out.println("getWordsWithPagination kısmına girildi"+wordService.getWordsByCategoryNameAndpageble(categoryName,pageNumber,limit));
         return  wordService.getWordsByCategoryNameAndpageble(categoryName,pageNumber,limit);
     }
     @PostMapping("/addCategories")

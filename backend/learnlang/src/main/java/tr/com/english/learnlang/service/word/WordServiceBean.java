@@ -132,8 +132,6 @@ public class WordServiceBean implements WordService {
         Word word = wordDao.getById(wordId);
 
         if (user != null) {
-            System.out.println("user name : "+user.getUsername());
-            System.out.println("word name : "+word.getName());
             if (user.getLearnedWordList() != null ) {
                 if(!user.getLearnedWordList().contains(word)){
                     user.getLearnedWordList().add(word);

@@ -31,9 +31,9 @@ import com.eng.learnlang.util.speak
 fun WordContent(
     navController: NavController,
     word: Word,
-    indexNumber: Int ,
-    addlistClick : (Word) ->Unit={},
-    listenClickListener : () -> Unit={}
+    indexNumber: Int,
+    addlistClick: (Word) -> Unit = {},
+    listenClickListener: () -> Unit = {}
 ) {
     val applicationContext = LocalContext.current
     val verifiedState = remember {
@@ -55,77 +55,118 @@ fun WordContent(
 
 
         ) {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 30.dp),horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp), horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Row(modifier = Modifier.padding(vertical = 9.dp)) {
-                    Text(text = "$indexNumber.${word.name} ",style = MaterialTheme.typography.h2,color = Color.White,fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "$indexNumber.${word.name} ",
+                        style = MaterialTheme.typography.h2,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
 
-                Row(verticalAlignment = Alignment.CenterVertically,horizontalArrangement = Arrangement.Center,modifier = Modifier.padding(vertical = 9.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(vertical = 9.dp)
+                ) {
                     Icon(
                         imageVector = Icons.Default.Verified,
                         contentDescription = "verified",
-                        tint = if(verifiedState.value) MaterialTheme.colors.primary else Color.White,
+                        tint = if (verifiedState.value) MaterialTheme.colors.primary else Color.White,
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(5.dp))
-                    Icon(imageVector= if(clicked.value) Icons.Default.ArrowDropUp else Icons.Default.KeyboardArrowDown, contentDescription = "verified",modifier = Modifier.size(30.dp))
+                    Icon(
+                        imageVector = if (clicked.value) Icons.Default.ArrowDropUp else Icons.Default.KeyboardArrowDown,
+                        contentDescription = "verified",
+                        modifier = Modifier.size(30.dp)
+                    )
 
                 }
             }
 
 
-
         }
-        if(clicked.value){
+        if (clicked.value) {
 
 
-            word.name?.let { speak(it,applicationContext = applicationContext) }
+            word.name?.let { speak(it, applicationContext = applicationContext) }
 
-            Column(modifier = Modifier
-                .fillMaxWidth()
-            ){
-                Row(modifier = Modifier
+            Column(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 25.dp)) {
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 25.dp)
+                ) {
                     Column() {
-                        Image(painter = painterResource(id = R.drawable.ic_turkey_flag), contentDescription = "turkey flag",modifier = Modifier.padding(12.dp) )
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_turkey_flag),
+                            contentDescription = "turkey flag",
+                            modifier = Modifier.padding(12.dp)
+                        )
                     }
                     Column {
                         Column(modifier = Modifier.padding(15.dp)) {
-                            word.mean?.let { Text(text = it,style = MaterialTheme.typography.body1,color = Color.White,) }
+                            word.mean?.let {
+                                Text(
+                                    text = it,
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.White,
+                                )
+                            }
                         }
-                        Divider(color = Color.White,thickness = 0.8.dp)
-                        Column(modifier = Modifier.padding(10.dp)) {
-                            word.examplaSenctence?.get(0)?.sentenceEN?.let {
-                                    Text(text = word.examplaSenctence[0].sentenceEN!!,style = MaterialTheme.typography.body1,color = Color.White)
+                        if (word.exampleSentence!!.get(0) != null) {
+                            Divider(color = Color.White, thickness = 0.8.dp)
+                            Column(modifier = Modifier.padding(10.dp)) {
+                                word.exampleSentence?.get(0)?.sentenceEN?.let {
+                                    Text(
+                                        text = word.exampleSentence[0].sentenceEN!!,
+                                        style = MaterialTheme.typography.body1,
+                                        color = Color.White
+                                    )
+                                }
                             }
                         }
                     }
 
                 }
-                Spacer(modifier=Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 4.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp)
+                ) {
                     Column(
-                        Modifier.weight(1f)){
+                        Modifier.weight(1f)
+                    ) {
                         Button(onClick = {
-                            verifiedState.value= true
-                            word.verified=true
+                            verifiedState.value = true
+                            word.verified = true
                             addlistClick(word)
-                        },modifier = Modifier.fillMaxWidth()) {
-                            Text(text = "Listeye Ekle",color = Color.White,fontWeight = FontWeight.Bold)
+                        }, modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "Listeye Ekle",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
+
                     }
                     Column(
                         Modifier.weight(1f)
                     ) {
                         Button(
                             onClick = {
-                                word.name?.let { speak(text = it,applicationContext) }
+                                word.name?.let { speak(text = it, applicationContext) }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -134,12 +175,12 @@ fun WordContent(
                                     hintgray, RoundedCornerShape(0.dp)
                                 )
                         ) {
-                            Text(text = "Dinle",color = Color.White,fontWeight = FontWeight.Bold)
+                            Text(text = "Dinle", color = Color.White, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                Divider(color = Color.White,thickness = 0.8.dp)
+                Divider(color = Color.White, thickness = 0.8.dp)
 
             }
         }

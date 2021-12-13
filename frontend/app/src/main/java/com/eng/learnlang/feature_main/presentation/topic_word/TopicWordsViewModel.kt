@@ -33,7 +33,6 @@ private val mainFeedUseCases: MainFeedUseCases
     private fun loadTopicWords(){
         viewModelScope.launch {
             var result = mainFeedUseCases.getCategoriesUseCase()
-            println("gelen değerler " + (result.data?.get(0) ?: "11"))
             _state.value=state.value.copy(
                 isLoading = true
             )
@@ -47,12 +46,9 @@ private val mainFeedUseCases: MainFeedUseCases
                     _state.value=state.value.copy(
                         isLoading = false
                     )
-                    print("hata ile karşılaşılmadı ")
                 }
 
                 is Resource.Error ->{
-                    print("hata ile karşılaşıldı  "+result.message)
-
                     _eventFlow.emit(
                         UiEvent.SnackbarEvent("Yüklerken Sorun Oluştu")
                     )

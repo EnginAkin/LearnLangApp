@@ -65,13 +65,13 @@ fun TeachContent(
                 Text(text = "Tanım :  "+word.description!!, textAlign = TextAlign.Start, style = MaterialTheme.typography.body1, color = Color.White)
             }
         }
-        if (word.examplaSenctence?.size!! >0){
+        if (word.exampleSentence?.size!! >0){
             Spacer(modifier = Modifier.height(10.dp))
             Divider(color = Color.White, thickness = 1.dp)
             Row(modifier = Modifier
                 .fillMaxWidth()
                 .padding( 10.dp)) {
-                Text(text = "Örnek :  "+ word.examplaSenctence?.get(0)!!.sentenceEN, textAlign = TextAlign.Start, style = MaterialTheme.typography.body1, color = Color.White)
+                Text(text = "Örnek :  "+ word.exampleSentence?.get(0)!!.sentenceEN, textAlign = TextAlign.Start, style = MaterialTheme.typography.body1, color = Color.White)
             }
         }
 
