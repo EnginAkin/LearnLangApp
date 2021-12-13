@@ -21,42 +21,6 @@ fun TopicWordDetailScreen(
     navController: NavController,
     topicWordDetailViewModel: TopicWordDetailViewModel= hiltViewModel()
 ) {
-/*
-    var listOfItems = listOf(
-        TopicWordDay(
-            categoryName = "A-1",
-            0,
-            learnedCountWord = 8
-        ),
-        TopicWordDay(
-            categoryName = "A-1",
-            1,
-            learnedCountWord = 5
-        ),
-        TopicWordDay(
-            categoryName = "A-1",
-            2,
-            learnedCountWord = 4
-        ), TopicWordDay(
-            categoryName = "A-1",
-            3,
-            learnedCountWord = 9
-        ), TopicWordDay(
-            categoryName = "A-1",
-            4,
-            learnedCountWord = 1
-        ), TopicWordDay(
-            categoryName = "A-1",
-            5,
-            learnedCountWord = 3
-        ), TopicWordDay(
-            categoryName = "A-1",
-            6,
-            learnedCountWord = 10
-        )
-    )
-
- */
     val state=topicWordDetailViewModel.state.value
    Column(modifier = Modifier.fillMaxWidth()) {
        StandartToolBar(
@@ -69,12 +33,19 @@ fun TopicWordDetailScreen(
 
            )
        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-           state.topicList?.let {
-               itemsIndexed(it.toList()){ i: Int, topicWordDay: TopicWordDay ->
+           state.topicList?.let {topicList ->
+               itemsIndexed(topicList.toList()){ i: Int, topicWordDay: TopicWordDay ->
                    TopicWordDayPost(
                       topicWordDay=topicWordDay,
-                       onclickListener = {topicWordDay -> 
-                           navController.navigate(Screen.TopicWordDetailContentScreen.route)
+                       onclickListener = {topicWordDay ->
+
+                           navController.navigate(
+                               Screen.TopicWordDetailContentScreen.route
+                                       +"?categoryName=${topicWordDay.categoryName}" +
+                                       "?day=${topicWordDay.wordDayCount}" +
+                                       "?limit=${topicWordDay.totalWordCount}"
+
+                           )
                        }
                    )
 

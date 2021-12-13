@@ -43,7 +43,7 @@ class CategoryRepositoryImpl (
             )
         }catch (e: IOException) {
             Resource.Error(
-                message = "Birşeyler ters gitti ! Servere ulaşılamıyor"
+                message = "Birşeyler ters gitti ! Servere ulaşılamıyor"+e.localizedMessage
             )
         } catch (e: HttpException) {
             Resource.Error(

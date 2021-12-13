@@ -39,7 +39,7 @@ object WordsModule {
     fun provideMainFeedUseCases(repository: CategoryRepository):MainFeedUseCases{
         return MainFeedUseCases(
             getCategoriesUseCase = GetCategoriesUseCase(repository),
-            getWordDayWithCategoryName = getWordsWithPaginationByCategoryName(repository),
+            getWordsWithPaginationByCategoryName = GetWordsWithPaginationByCategoryName(repository),
             getWordsByCategoryName = GetWordsByCategoryName(repository),
             getUserLearnedWords = GetUserLearnedWords(repository)
         )

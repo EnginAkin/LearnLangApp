@@ -2,6 +2,7 @@ package com.eng.learnlang.presentation.util
 
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavArgument
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -58,7 +59,30 @@ fun Navigation(
             MyWordListDetailScreen(navController)
         }
 
-        composable(Screen.TopicWordDetailContentScreen.route){
+        composable(
+            Screen.TopicWordDetailContentScreen.route+"" +
+                    "?categoryName={categoryName}" +
+                    "?day={day}" +
+                    "?limit={limit}",
+            arguments = listOf(
+                navArgument(
+                    name="categoryName"
+                ){
+                    type= NavType.StringType
+                },
+                navArgument(
+                    name="day"
+                ){
+                    type= NavType.IntType
+                },
+                navArgument(
+                    name="limit"
+                ){
+                    type= NavType.IntType
+                }
+            )
+
+        ){
             TopicWordDetailContentScreen(navController)
         }
         composable(

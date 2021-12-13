@@ -15,6 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import com.eng.learnlang.core.domain.model.Category
 import com.eng.learnlang.core.domain.model.Sentence
@@ -22,10 +24,12 @@ import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.presentation.components.StandartToolBar
 import com.eng.learnlang.core.presentation.components.WordContent
 import com.eng.learnlang.core.util.Screen
+import com.eng.learnlang.feature_main.presentation.topic_word_details_content.TopicWordDetailContentViewModel
 
 @Composable
 fun TopicWordDetailContentScreen(
     navController: NavController,
+    viewmodel: TopicWordDetailContentViewModel= hiltViewModel(),
     wordList : List<Word> = listOf(
             Word(
                 name = "Hi",
