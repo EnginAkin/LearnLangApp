@@ -1,5 +1,6 @@
 package com.eng.learnlang.core.presentation.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -9,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Verified
 import androidx.compose.runtime.Composable
@@ -17,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,11 +32,11 @@ import com.eng.learnlang.util.speak
 
 @Composable
 fun WordContent(
-    navController: NavController,
     word: Word,
     indexNumber: Int,
-    addlistClick: (Word) -> Unit = {},
-    listenClickListener: () -> Unit = {}
+    addWordlistClick: (Long) -> Unit = {},
+    addLearnedList: (Long) -> Unit = {},
+    clickSpeakWord: (String) -> Unit = {},
 ) {
     val applicationContext = LocalContext.current
     val verifiedState = remember {
@@ -52,8 +55,6 @@ fun WordContent(
                 }
                 .border(width = 1.dp, color = Color.White, RoundedCornerShape(10.dp))
                 .background(color = if (clicked.value) MaterialTheme.colors.onSurface else MaterialTheme.colors.onSecondary)
-
-
         ) {
             Row(
                 modifier = Modifier
@@ -68,7 +69,6 @@ fun WordContent(
                         fontWeight = FontWeight.Bold
                     )
                 }
-
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
@@ -86,17 +86,10 @@ fun WordContent(
                         contentDescription = "verified",
                         modifier = Modifier.size(30.dp)
                     )
-
                 }
             }
-
-
         }
         if (clicked.value) {
-
-
-            word.name?.let { speak(it, applicationContext = applicationContext) }
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -114,12 +107,32 @@ fun WordContent(
                         )
                     }
                     Column {
-                        Column(modifier = Modifier.padding(15.dp)) {
-                            word.mean?.let {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            word.mean?.let { mean ->
                                 Text(
-                                    text = it,
+                                    modifier = Modifier.padding(top = 5.dp),
+                                    text = mean,
                                     style = MaterialTheme.typography.body1,
                                     color = Color.White,
+                                )
+                            }
+                            IconButton(
+                                onClick = {
+                                    word.name?.let { wordName ->
+                                        clickSpeakWord(wordName)
+                                    }
+                                },
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_ses_icon),
+                                    contentDescription = "icon ses",
+                                    Modifier.size(24.dp),
+                                    tint = Color.White
                                 )
                             }
                         }
@@ -149,12 +162,10 @@ fun WordContent(
                         Modifier.weight(1f)
                     ) {
                         Button(onClick = {
-                            verifiedState.value = true
-                            word.verified = true
-                            addlistClick(word)
+                            word.id?.let { addWordlistClick(it.toLong()) }
                         }, modifier = Modifier.fillMaxWidth()) {
                             Text(
-                                text = "Listeye Ekle",
+                                text = "Kelime listeme Ekle",
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold
                             )
@@ -165,8 +176,10 @@ fun WordContent(
                         Modifier.weight(1f)
                     ) {
                         Button(
+                            enabled = !verifiedState.value,
                             onClick = {
-                                word.name?.let { speak(text = it, applicationContext) }
+                                verifiedState.value=true
+                                word.id?.let { addLearnedList(it.toLong()) }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -175,20 +188,29 @@ fun WordContent(
                                     hintgray, RoundedCornerShape(0.dp)
                                 )
                         ) {
-                            Text(text = "Dinle", color = Color.White, fontWeight = FontWeight.Bold)
+                           if(!verifiedState.value){
+                               Text(
+                                   text = "Biliyorum",
+                                   color = Color.White,
+                                   fontWeight = FontWeight.Bold
+                               )
+                           }else{
+                               Text(
+                                   text = "Biliyorum",
+                                   color = Color.Gray,
+                                   fontWeight = FontWeight.Bold,
+
+                               )
+                           }
                         }
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Divider(color = Color.White, thickness = 0.8.dp)
-
             }
         }
     }
-
 }
-
-
 /*
  Box(
         modifier = Modifier

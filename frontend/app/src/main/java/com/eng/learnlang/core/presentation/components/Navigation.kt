@@ -83,7 +83,7 @@ fun Navigation(
             )
 
         ){
-            TopicWordDetailContentScreen(navController)
+            TopicWordDetailContentScreen(navController, scaffoldState = scaffoldState)
         }
         composable(
             Screen.TopicWordDetailScreen.route+"/{categoryName}",

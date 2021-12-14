@@ -59,18 +59,7 @@ public class WordServiceBean implements WordService {
         return wordlist.subList(pageNumber, limit);
     }
 
-    @Override
-    public void addWordToUser(Long wordId, Long userId) {
-        User user = userDao.getById(userId);
-        Word word = wordDao.getById(wordId);
-        if (user.getKelimeList() != null) {
-            user.getKelimeList().add(word);
-        } else {
-            user.setKelimeList(new ArrayList<Word>());
-            user.getKelimeList().add(word);
-        }
-        userDao.save(user);
-    }
+
 
     @Override
     public void addWord(Word word) {
@@ -140,6 +129,27 @@ public class WordServiceBean implements WordService {
             }else{
                 user.setLearnedWordList(new ArrayList<>());
                 user.getLearnedWordList().add(word);
+            }
+            userDao.save(user);
+
+        }
+        return;
+    }
+
+    @Override
+    public void addUserWordList(Long userId, Long wordId) {
+        User user = userDao.getById(userId);
+        Word word = wordDao.getById(wordId);
+
+        if (user != null) {
+            if (user.getKelimeList() != null ) {
+                if(!user.getKelimeList().contains(word)){
+                    user.getKelimeList().add(word);
+
+                }
+            }else{
+                user.setKelimeList(new ArrayList<>());
+                user.getKelimeList().add(word);
             }
             userDao.save(user);
 

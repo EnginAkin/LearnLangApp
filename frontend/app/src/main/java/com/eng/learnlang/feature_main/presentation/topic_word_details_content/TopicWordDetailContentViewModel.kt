@@ -1,22 +1,25 @@
 package com.eng.learnlang.feature_main.present
 
+import android.app.Application
 import com.eng.learnlang.feature_main.presentation.topic_word_details_content.WordContentEvent
 import com.eng.learnlang.feature_main.presentation.topic_word_details_content.WordDetailContentState
 
 
 import android.content.SharedPreferences
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eng.learnlang.core.domain.model.Word
+import com.eng.learnlang.core.presentation.util.UiEvent
 import com.eng.learnlang.core.util.Constants
 import com.eng.learnlang.core.util.Resource
 import com.eng.learnlang.feature_main.domain.use_case.MainFeedUseCases
-import com.eng.learnlang.feature_main.presentation.TopicWordDetailsScreen.WordDetailState
+import com.eng.learnlang.util.speak
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,19 +28,25 @@ import javax.inject.Inject
 class TopicWordDetailContentViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     val mainFeedUseCases: MainFeedUseCases,
-    val sharedPreferences: SharedPreferences
-
+    val sharedPreferences: SharedPreferences,
+    val application: Application
 ) : ViewModel() {
 
     private val _state = mutableStateOf(WordDetailContentState())
     val state: State<WordDetailContentState> = _state
 
     private val listLearnedWords = mutableListOf<Word>();
+    private val applicationContext = application.applicationContext
+
+    private val _sharedFlow= MutableSharedFlow<UiEvent>()
+    val sharedFlow=_sharedFlow.asSharedFlow()
     var categoryName: String = ""
     var day: Int = 0
     var limit: Int = 0
+    var userId: Long = 0
+
     init {
-        val userId = sharedPreferences.getLong(Constants.KEY_USER_ID, 0)
+        userId = sharedPreferences.getLong(Constants.KEY_USER_ID, 0)
         viewModelScope.launch {
             loadUserLearnedWords(userId)
         }
@@ -53,19 +62,37 @@ class TopicWordDetailContentViewModel @Inject constructor(
         }
 
 
-
     }
+
 
     fun onEvent(event: WordContentEvent) {
         when (event) {
-            is WordContentEvent.AddListWordClick -> {
-            // TODO Öğrenme Biliyorum tarzında bir buton eklenecek ve ona gore öğrenmeden geçebilecektir.
-            }
-            is WordContentEvent.VerifiedWord -> {
+            is WordContentEvent.AddMyListWordClicked -> {
 
             }
-            is WordContentEvent.StartLearning ->{
+            is WordContentEvent.AddLearnedListWordClick -> {
+                viewModelScope.launch {
+                    var result =
+                        mainFeedUseCases.addLearnedWordListInUserUseCase(userId, event.wordId)
+                    when (result) {
+                        is Resource.Success -> {
+                            println("gelen id = ${event.wordId} ")
+                            _state.value.wordList!!.find { it.id?.toLong() == event.wordId }!!.verified = true
+                            println("değişim  ${ _state.value.wordList!!.find { it.id?.toLong() == event.wordId }} ")
 
+                            _sharedFlow.emit(UiEvent.SnackbarEvent("Kelime Başarıyla Eklendi"))
+                        }
+                        is Resource.Error -> {
+                            _sharedFlow.emit(UiEvent.SnackbarEvent("Kelime Eklenemedi. Daha sonra tekrar deneyiniz"+result.message))
+                        }
+                    }
+                }
+            }
+            is WordContentEvent.StartLearning -> {
+
+            }
+            is WordContentEvent.CLickListenWord -> {
+                speak(text = event.word, applicationContext)
             }
         }
     }
@@ -73,22 +100,25 @@ class TopicWordDetailContentViewModel @Inject constructor(
     private suspend fun loadUserLearnedWords(userId: Long) {
         viewModelScope.launch {
             val result = mainFeedUseCases.getUserLearnedWords(userId)
-            _state.value=_state.value.copy(
+            _state.value = _state.value.copy(
                 isLoading = true
             )
             when (result) {
                 is Resource.Success -> {
-                    println("loadUserLearnedWords is succes ${result.data}")
                     result.data?.forEachIndexed { index, word ->
                         listLearnedWords.add(word)
                     }
                     loadWordsByCategoryNameWithPagination(categoryName, day, limit)
-                    _state.value=_state.value.copy(
+                    _state.value = _state.value.copy(
                         isLoading = false
                     )
 
                 }
                 is Resource.Error -> {
+                    _state.value = _state.value.copy(
+                        isLoading = false
+                    )
+                    loadWordsByCategoryNameWithPagination(categoryName, day, limit)
                     println("loadUserLearnedWords is error ${result.message}")
                 }
                 null -> {
@@ -130,12 +160,12 @@ class TopicWordDetailContentViewModel @Inject constructor(
             println("word list state : ${_state.value.wordList}")
             println("word list learned user : ${listLearnedWords}")
             _state.value.wordList!!.forEachIndexed { index, word ->
-                if(listLearnedWords.contains(word)){
+                if (listLearnedWords.contains(word)) {
                     println("içeriyor = ${word.name}")
-                    _state.value.wordList!!.find { it.name==word.name }!!.verified=true
+                    _state.value.wordList!!.find { it.name == word.name }!!.verified = true
                 }
             }
-        }else{
+        } else {
             println("gelen değer boş")
 
         }

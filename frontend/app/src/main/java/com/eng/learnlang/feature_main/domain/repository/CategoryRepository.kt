@@ -6,6 +6,7 @@ import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.util.Resource
 import com.eng.learnlang.core.util.SimpleResource
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CategoryRepository {
     suspend fun getCategoriesPost():Resource<List<Category>>
@@ -13,5 +14,7 @@ interface CategoryRepository {
     suspend fun getWordsByCategoryName(categoryName : String): Resource<List<Word>>
     suspend fun getUsersLearnedWords(userId : Long): Resource<List<Word>>
     suspend fun addUserLearnedWordList( wordId :Long,userId :Long): SimpleResource
+    suspend fun addUserWordList( wordId :Long,  userId :Long)
+
 
 }

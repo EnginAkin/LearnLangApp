@@ -11,7 +11,6 @@ public interface WordService {
     List<Word> getWordsByCategoryName(String categoryName);
     List<Category> getCategories();
     List<Word> getWordsByCategoryNameAndpageble(String categoryName,int pageNumber,int limit);
-    void addWordToUser(Long wordId,Long userId);
     void addWord(Word word);
     List<Word> getListWordsByUserId(Long id);
 
@@ -20,4 +19,6 @@ public interface WordService {
     List<Word> getLearnedWordsByUserId(Long id);
 
     void addWordToUserLearnedList(Long userId, Long wordId);
+
+    void addUserWordList(Long userId, Long wordId);
 }

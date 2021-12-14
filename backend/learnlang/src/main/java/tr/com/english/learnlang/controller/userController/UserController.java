@@ -62,10 +62,14 @@ public class UserController {
     }
 
     @PostMapping("/word/addLearnedList")
-    public ResponseEntity<?> addLearnedList(@RequestParam("userId") Long userId , @RequestParam("wordId") Long wordId){
-        System.out.println("user id : "+userId);
-        System.out.println("word id : "+wordId);
+    public ResponseEntity<?> addLearnedList(@RequestParam("wordId") Long wordId , @RequestParam("userId") Long userId){
         wordService.addWordToUserLearnedList(userId,wordId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/word/addUserWordList")
+    public ResponseEntity<?> addUserWordList(@RequestParam("wordId") Long wordId , @RequestParam("userId") Long userId){
+        wordService.addUserWordList(userId,wordId);
         return ResponseEntity.ok().build();
     }
 

@@ -10,21 +10,27 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface WordsApi {
-    @GET("/api/v1/getCategoriesWithInfo")
+
+    @GET("${VERSION_URL}getCategoriesWithInfo")
     suspend fun getCategoriesWithInfo():List<Category>
-    @GET("/api/v1/getWordsByCategoryNameAndWithPage/{categoryName}")
+
+    @GET("${VERSION_URL}getWordsByCategoryNameAndWithPage/{categoryName}")
    suspend fun getWordsByCategoryNameAndpageble(@Path("categoryName") categoryName: String,@Query("pageNumber") pageNumber : Int,@Query("limit") limit : Int):List<Word>
 
-    @GET("/api/v1/getWordsWithCategoryName")
+    @GET("${VERSION_URL}getWordsWithCategoryName")
     suspend fun getWordsByCategoryName(@Query("categoryName") categoryName : String):List<Word>
 
-    @GET("/api/v1/user/learnedWords")
+    @GET("${VERSION_URL}user/learnedWords")
     suspend fun getUsersLearnedWords(@Query("userId") userId :Long):List<Word>
 
-    @POST("/api/v1/word/addLearnedList/{wordId}/{userId}")
-    suspend fun addUserLearnedWordList(@Path("wordId") wordId :Long, @Path("userId") userId :Long)
+    @POST("${VERSION_URL}word/addLearnedList/")
+    suspend fun addUserLearnedWordList(@Query("wordId") wordId :Long, @Query("userId") userId :Long)
+
+    @POST("${VERSION_URL}word/addUserWordList")
+    suspend fun addUserWordList(@Query("wordId") wordId :Long, @Query("userId") userId :Long)
 
     companion object{
         const val BASE_URL=WORDS_API_BASE_URL
+        const val VERSION_URL="/api/v1/"
     }
 }
