@@ -1,8 +1,8 @@
 package com.eng.learnlang.di
 
 import com.eng.learnlang.feature_main.data.remote.WordsApi
-import com.eng.learnlang.feature_main.data.repository.CategoryRepositoryImpl
-import com.eng.learnlang.feature_main.domain.repository.CategoryRepository
+import com.eng.learnlang.feature_main.data.repository.MainWordRepositoryImpl
+import com.eng.learnlang.feature_main.domain.repository.MainWordRepository
 import com.eng.learnlang.feature_main.domain.use_case.*
 import dagger.Module
 import dagger.Provides
@@ -30,19 +30,22 @@ object WordsModule {
 
     @Provides
     @Singleton
-    fun provideCategoryRepository(api: WordsApi):CategoryRepository{
-        return CategoryRepositoryImpl(api)
+    fun provideCategoryRepository(api: WordsApi):MainWordRepository{
+        return MainWordRepositoryImpl(api)
     }
 
     @Singleton
     @Provides
-    fun provideMainFeedUseCases(repository: CategoryRepository):MainFeedUseCases{
+    fun provideMainFeedUseCases(repository: MainWordRepository):MainFeedUseCases{
         return MainFeedUseCases(
             getCategoriesUseCase = GetCategoriesUseCase(repository),
             getWordsWithPaginationByCategoryName = GetWordsWithPaginationByCategoryName(repository),
             getWordsByCategoryName = GetWordsByCategoryName(repository),
             getUserLearnedWords = GetUserLearnedWords(repository),
-            addLearnedWordListInUserUseCase= AddLearnedWordListInUserUseCase(repository)
+            addLearnedWordListInUserUseCase= AddLearnedWordListInUserUseCase(repository),
+            addUserWordListUseCase = AddUserWordListUseCase(repository),
+            getUserWordListUseCase=GetUserWordListUseCase(repository),
+            deleteUserWordListByWordIdUseCase=DeleteUserWordListByWordIdUseCase(repository )
         )
     }
 }

@@ -38,7 +38,6 @@ fun WordContent(
     addLearnedList: (Long) -> Unit = {},
     clickSpeakWord: (String) -> Unit = {},
 ) {
-    val applicationContext = LocalContext.current
     val verifiedState = remember {
         mutableStateOf(word.verified)
     }

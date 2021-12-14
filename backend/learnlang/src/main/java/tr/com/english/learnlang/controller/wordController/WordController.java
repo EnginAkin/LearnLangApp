@@ -33,10 +33,7 @@ public class WordController {
     public List<Word> getWords(){
         return wordService.getWords();
     }
-    @PostMapping("/addWordToUser/{wordId}/{userId}")
-    public void addWordToUser(@PathVariable("wordId") Long wordId,@PathVariable("userId") Long userId){
-       wordService.addWordToUser(wordId,userId);
-    }
+
 
     @GetMapping("/getCategories")
     List<Category> getCategories(){

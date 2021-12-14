@@ -21,4 +21,6 @@ public interface WordService {
     void addWordToUserLearnedList(Long userId, Long wordId);
 
     void addUserWordList(Long userId, Long wordId);
+
+    void deleteUserWordListByWordId(Long userId, Long wordId);
 }

@@ -4,10 +4,7 @@ import com.eng.learnlang.core.data.dto.response.GeneralApiResponse
 import com.eng.learnlang.core.domain.model.Category
 import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.util.Constants.WORDS_API_BASE_URL
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface WordsApi {
 
@@ -23,8 +20,15 @@ interface WordsApi {
     @GET("${VERSION_URL}user/learnedWords")
     suspend fun getUsersLearnedWords(@Query("userId") userId :Long):List<Word>
 
+    @GET("${VERSION_URL}user/wordList/{userId}")
+    suspend fun getUserWordList(@Path("userId") userId :Long):List<Word>
+
+
     @POST("${VERSION_URL}word/addLearnedList/")
     suspend fun addUserLearnedWordList(@Query("wordId") wordId :Long, @Query("userId") userId :Long)
+
+    @DELETE("${VERSION_URL}word/deleteUserWordList/")
+    suspend fun deleteWordInUserWordList(@Query("wordId") wordId :Long, @Query("userId") userId :Long)
 
     @POST("${VERSION_URL}word/addUserWordList")
     suspend fun addUserWordList(@Query("wordId") wordId :Long, @Query("userId") userId :Long)

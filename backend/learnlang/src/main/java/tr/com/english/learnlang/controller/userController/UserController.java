@@ -63,6 +63,7 @@ public class UserController {
 
     @PostMapping("/word/addLearnedList")
     public ResponseEntity<?> addLearnedList(@RequestParam("wordId") Long wordId , @RequestParam("userId") Long userId){
+        System.out.println("Girişyapıldu "+wordId +" user id "+userId);
         wordService.addWordToUserLearnedList(userId,wordId);
         return ResponseEntity.ok().build();
     }
@@ -70,6 +71,14 @@ public class UserController {
     @PostMapping("/word/addUserWordList")
     public ResponseEntity<?> addUserWordList(@RequestParam("wordId") Long wordId , @RequestParam("userId") Long userId){
         wordService.addUserWordList(userId,wordId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/word/deleteUserWordList")
+    public ResponseEntity<?> deleteWordListByUserId(@RequestParam("wordId") Long wordId , @RequestParam("userId") Long userId){
+        System.out.println("gelen user ıd : "+userId);
+        System.out.println("gelen word ıd : "+wordId);
+        wordService.deleteUserWordListByWordId(userId,wordId);
         return ResponseEntity.ok().build();
     }
 

@@ -8,13 +8,15 @@ import com.eng.learnlang.core.util.SimpleResource
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface CategoryRepository {
+interface MainWordRepository {
     suspend fun getCategoriesPost():Resource<List<Category>>
     suspend fun getWordsWithPaginationByCategoryName(categoryName : String,pageNumber : Int, limit : Int): Resource<List<Word>>
     suspend fun getWordsByCategoryName(categoryName : String): Resource<List<Word>>
     suspend fun getUsersLearnedWords(userId : Long): Resource<List<Word>>
     suspend fun addUserLearnedWordList( wordId :Long,userId :Long): SimpleResource
-    suspend fun addUserWordList( wordId :Long,  userId :Long)
+    suspend fun addUserWordList( wordId :Long,  userId :Long):SimpleResource
+    suspend fun getUserWordList(userId :Long):Resource<List<Word>>
+    suspend fun deleteUserWordListByWordId(wordId :Long,userId: Long):SimpleResource
 
 
 }

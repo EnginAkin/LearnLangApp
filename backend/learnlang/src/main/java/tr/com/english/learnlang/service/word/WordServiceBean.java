@@ -156,4 +156,25 @@ public class WordServiceBean implements WordService {
         }
         return;
     }
+
+    @Override
+    public void deleteUserWordListByWordId(Long userId, Long wordId) {
+        User user = userDao.getById(userId);
+        Word word = wordDao.getById(wordId);
+        if (user != null) {
+            if (user.getKelimeList() != null ) {
+                System.out.println("kelime listesi null değil. ");
+
+                if(user.getKelimeList().contains(word)){
+                    System.out.println("kelime bulundu ve silinecek . "+word);
+                    user.getKelimeList().remove(word);
+                }
+            }else{
+                return;
+            }
+            userDao.save(user);
+
+        }
+        return;
+    }
 }

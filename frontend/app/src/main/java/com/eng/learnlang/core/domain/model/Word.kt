@@ -7,6 +7,7 @@ data class Word(
     val description : String?=null,
     val exampleSentence : List<Sentence> ? =null,
     val category: Category?=null,
-    var verified: Boolean=false
+    var verified: Boolean=false,
+    var isWordInMyWordList : Boolean = false
 )
 

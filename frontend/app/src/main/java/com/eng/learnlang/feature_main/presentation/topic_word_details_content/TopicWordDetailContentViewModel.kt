@@ -11,10 +11,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.presentation.util.UiEvent
 import com.eng.learnlang.core.util.Constants
 import com.eng.learnlang.core.util.Resource
+import com.eng.learnlang.core.util.Screen
 import com.eng.learnlang.feature_main.domain.use_case.MainFeedUseCases
 import com.eng.learnlang.util.speak
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -65,10 +67,24 @@ class TopicWordDetailContentViewModel @Inject constructor(
     }
 
 
+
+
     fun onEvent(event: WordContentEvent) {
         when (event) {
             is WordContentEvent.AddMyListWordClicked -> {
+                viewModelScope.launch {
+                    val result = mainFeedUseCases.addUserWordListUseCase(userId,event.wordId)
+                    when(result){
+                        is Resource.Success ->{
+                            _sharedFlow.emit(UiEvent.SnackbarEvent("Kelime Listesine Eklendi"))
 
+                        }
+                        is Resource.Error ->{
+                            _sharedFlow.emit(UiEvent.SnackbarEvent("Kelime Listesine Eklenemedi !!!!"))
+
+                        }
+                    }
+                }
             }
             is WordContentEvent.AddLearnedListWordClick -> {
                 viewModelScope.launch {
@@ -89,7 +105,7 @@ class TopicWordDetailContentViewModel @Inject constructor(
                 }
             }
             is WordContentEvent.StartLearning -> {
-
+                // TODO navigate to teach deatils _sharedFlow.emit(UiEvent.Navigate(Screen.TeachDetailScreen.route+))
             }
             is WordContentEvent.CLickListenWord -> {
                 speak(text = event.word, applicationContext)
@@ -165,9 +181,6 @@ class TopicWordDetailContentViewModel @Inject constructor(
                     _state.value.wordList!!.find { it.name == word.name }!!.verified = true
                 }
             }
-        } else {
-            println("gelen değer boş")
-
         }
     }
 
