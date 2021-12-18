@@ -3,17 +3,15 @@ package tr.com.english.learnlang.controller.wordController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tr.com.english.learnlang.constant.GeneralResponse;
-import tr.com.english.learnlang.dao.WordDao;
 import tr.com.english.learnlang.entity.category.Category;
 import tr.com.english.learnlang.entity.responseEntity.ResponseWordCategories;
-import tr.com.english.learnlang.entity.user.User;
+import tr.com.english.learnlang.entity.responseEntity.WordsWrapper;
 import tr.com.english.learnlang.entity.words.Word;
 import tr.com.english.learnlang.service.category.CategoryService;
-import tr.com.english.learnlang.service.user.UserService;
 import tr.com.english.learnlang.service.word.WordService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -61,5 +59,12 @@ public class WordController {
         categoryService.addCategory(category);
     }
 
+    @PostMapping("/word/getWordByWordListId")
+    List<Word> getWordByWordListId(@RequestBody WordsWrapper wrapper){
+        if(wrapper.getWordIds().size()>0){
+            return wordService.getWordsByWordsListId(wrapper.getWordIds());
+        }
+        return null;
+    }
 
 }

@@ -38,6 +38,9 @@ fun TopicWordDetailContentScreen(
                 is UiEvent.SnackbarEvent ->{
                     scaffoldState.snackbarHostState.showSnackbar(message = event.message,duration = SnackbarDuration.Short)
                 }
+                is UiEvent.Navigate ->{
+                    navController.navigate(event.route)
+                }
             }
         }
     }

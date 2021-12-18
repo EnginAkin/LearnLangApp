@@ -16,7 +16,8 @@ import com.eng.learnlang.core.domain.model.Sentence
 import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.presentation.components.StandartToolBar
 import com.eng.learnlang.core.presentation.components.TestContent
-import com.eng.learnlang.feature_test.presentation.teach_detail.TestDetailviewModel
+import com.eng.learnlang.feature_test.presentation.teach_detail.TeachViewModel
+import com.eng.learnlang.feature_test.presentation.test.TestViewModel
 
 @Composable
 fun TestScreen(
@@ -59,12 +60,13 @@ fun TestScreen(
         ),
     ) ,
     navController: NavController,
-    viewModel: TestDetailviewModel = hiltViewModel()
+    viewModel: TestViewModel = hiltViewModel()
 ) {
-    var word =wordList.get(viewModel.currentIndexTeach.value)
-    var currentIndex = viewModel.currentIndexTeach.value
-    var isDone = (currentIndex+1)/wordList.size ==1
-    var progressBarCount=(currentIndex+1).toFloat()/wordList.size.toFloat()
+    val state=viewModel.state.value
+    var word = state.wordList?.get(state.currentIndex)
+    var currentIndex = state.currentIndex
+    var isDone = (currentIndex+1)/ (state.wordList?.size ?: 0) ==1
+    var progressBarCount=(currentIndex+1).toFloat()/state.wordList?.size!!.toFloat()
 
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -79,7 +81,10 @@ fun TestScreen(
     }
     Box(modifier = Modifier
         .fillMaxSize()){
-        TestContent(navController = navController, CorrectAnswer = word,allQuestion = wordList, onClik = {})
+        if (word != null) {
+
+            TestContent(navController = navController, CorrectAnswer = word,allQuestion = wordList, onClik = {})
+        }
 
     }
 

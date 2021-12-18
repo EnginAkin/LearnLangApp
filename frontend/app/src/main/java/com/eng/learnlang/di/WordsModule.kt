@@ -45,7 +45,8 @@ object WordsModule {
             addLearnedWordListInUserUseCase= AddLearnedWordListInUserUseCase(repository),
             addUserWordListUseCase = AddUserWordListUseCase(repository),
             getUserWordListUseCase=GetUserWordListUseCase(repository),
-            deleteUserWordListByWordIdUseCase=DeleteUserWordListByWordIdUseCase(repository )
+            deleteUserWordListByWordIdUseCase=DeleteUserWordListByWordIdUseCase(repository ),
+            getWordsByWordListUseCase = GetWordsByWordListUseCase(repository)
         )
     }
 }

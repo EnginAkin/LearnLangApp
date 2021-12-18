@@ -41,6 +41,7 @@ class TopicWordDetailViewModel @Inject constructor(
         savedStateHandle.get<String>("categoryName")?.let {
             loadTopicWordsDay(it)
         }
+        println("gelindi :")
     }
 
     private fun loadTopicWordsDay(categoryName: String) {

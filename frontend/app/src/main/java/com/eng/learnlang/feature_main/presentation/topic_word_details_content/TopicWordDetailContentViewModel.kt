@@ -106,11 +106,28 @@ class TopicWordDetailContentViewModel @Inject constructor(
             }
             is WordContentEvent.StartLearning -> {
                 // TODO navigate to teach deatils _sharedFlow.emit(UiEvent.Navigate(Screen.TeachDetailScreen.route+))
+                viewModelScope.launch {
+                    var unLearnedWordsId=getUnLearnedWords()
+                    _sharedFlow.emit(UiEvent.Navigate(Screen.TeachDetailScreen.route+"?wordsId=${unLearnedWordsId}"))
+                }
             }
             is WordContentEvent.CLickListenWord -> {
                 speak(text = event.word, applicationContext)
             }
         }
+    }
+
+    private fun getUnLearnedWords(): String{
+        var words= _state.value.wordList?.filter { it.isWordInMyWordList==false }
+        var wordsId = ArrayList<Long>()
+        if (words != null) {
+            words.forEachIndexed { index, word ->
+                if(!word.verified){
+                        word.id?.let { wordsId.add(it.toLong()) }
+                }
+            }
+        }
+        return  wordsId.toString()
     }
 
     private suspend fun loadUserLearnedWords(userId: Long) {

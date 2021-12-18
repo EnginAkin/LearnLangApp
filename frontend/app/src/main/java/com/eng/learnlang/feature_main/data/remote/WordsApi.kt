@@ -4,6 +4,7 @@ import com.eng.learnlang.core.data.dto.response.GeneralApiResponse
 import com.eng.learnlang.core.domain.model.Category
 import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.util.Constants.WORDS_API_BASE_URL
+import com.eng.learnlang.feature_main.data.repository.WordsWrapper
 import retrofit2.http.*
 
 interface WordsApi {
@@ -23,7 +24,6 @@ interface WordsApi {
     @GET("${VERSION_URL}user/wordList/{userId}")
     suspend fun getUserWordList(@Path("userId") userId :Long):List<Word>
 
-
     @POST("${VERSION_URL}word/addLearnedList/")
     suspend fun addUserLearnedWordList(@Query("wordId") wordId :Long, @Query("userId") userId :Long)
 
@@ -32,6 +32,9 @@ interface WordsApi {
 
     @POST("${VERSION_URL}word/addUserWordList")
     suspend fun addUserWordList(@Query("wordId") wordId :Long, @Query("userId") userId :Long)
+
+    @POST("${VERSION_URL}word/getWordByWordListId")
+    suspend fun getWordsByWordList(@Body list: WordsWrapper) : List<Word>
 
     companion object{
         const val BASE_URL=WORDS_API_BASE_URL

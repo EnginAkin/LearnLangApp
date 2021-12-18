@@ -152,6 +152,28 @@ class MainWordRepositoryImpl (
         }
     }
 
+    override suspend fun getWordsByWordList(wrapper:WordsWrapper): Resource<List<Word>> {
+        return  try {
+            var result=api.getWordsByWordList(wrapper)
+            println("result =  getWordsByWordList $result")
+            Resource.Success(
+                data = result
+            )
+        }catch (e: IOException) {
+            Resource.Error(
+                message = "Birşeyler ters gitti ! Servere ulaşılamıyor"
+            )
+        } catch (e: HttpException) {
+            Resource.Error(
+                message = "please try again e :" + e.localizedMessage
+            )
+        } catch (e: Exception) {
+            Resource.Error(
+                message =e.localizedMessage
+            )
+        }
+    }
+
     override suspend fun getUserWordList(userId: Long): Resource<List<Word>> {
         return  try {
             var result=api.getUserWordList(userId)

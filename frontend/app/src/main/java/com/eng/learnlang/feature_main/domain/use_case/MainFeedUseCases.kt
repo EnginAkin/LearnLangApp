@@ -8,5 +8,6 @@ data class MainFeedUseCases (
     val addLearnedWordListInUserUseCase:AddLearnedWordListInUserUseCase,
     val addUserWordListUseCase:AddUserWordListUseCase,
     val getUserWordListUseCase:GetUserWordListUseCase,
-    val deleteUserWordListByWordIdUseCase:DeleteUserWordListByWordIdUseCase
+    val deleteUserWordListByWordIdUseCase:DeleteUserWordListByWordIdUseCase,
+    val getWordsByWordListUseCase: GetWordsByWordListUseCase
 )

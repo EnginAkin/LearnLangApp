@@ -97,7 +97,16 @@ fun Navigation(
         ){
             TopicWordDetailScreen(navController = navController)
         }
-        composable(Screen.TeachDetailScreen.route){
+        composable(
+            Screen.TeachDetailScreen.route+"?wordsId={wordsId}",
+            arguments = listOf(
+                navArgument(
+                    name = "wordsId"
+                ){
+                    type= NavType.StringType
+                }
+            )
+        ){
             TeachDetailScreen(navController = navController)
         }
         composable(Screen.TestDetailScreen.route,){

@@ -5,6 +5,7 @@ import tr.com.english.learnlang.entity.responseEntity.ResponseWordCategories;
 import tr.com.english.learnlang.entity.words.Word;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface WordService {
     List<Word> getWords();
@@ -23,4 +24,6 @@ public interface WordService {
     void addUserWordList(Long userId, Long wordId);
 
     void deleteUserWordListByWordId(Long userId, Long wordId);
+
+    List<Word> getWordsByWordsListId(List<String> wordIds);
 }

@@ -12,7 +12,7 @@ object Constants {
     const val KEY_JWT_TOKEN="jwt_token"
     const val SHARED_PREFERENCE_NAME="shared_preference"
     const val KEY_USER_ID="userId"
-    const val AUTH_API_BASE_URL="http://192.168.1.4:8082"
-    const val WORDS_API_BASE_URL="http://192.168.1.4:8082"
+    const val AUTH_API_BASE_URL="http://192.168.1.8:8082"
+    const val WORDS_API_BASE_URL="http://192.168.1.8:8082"
 
 }

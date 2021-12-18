@@ -11,5 +11,4 @@ import java.util.List;
 public interface WordDao extends JpaRepository<Word,Long> {
         List<Word> getWordsByCategoryCategoryName(String categoryName);
 
-
 }

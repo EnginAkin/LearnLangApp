@@ -1,9 +1,6 @@
 package tr.com.english.learnlang.service.word;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import tr.com.english.learnlang.dao.CategoryDao;
 import tr.com.english.learnlang.dao.UserDao;
@@ -15,6 +12,7 @@ import tr.com.english.learnlang.entity.words.Word;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WordServiceBean implements WordService {
@@ -124,7 +122,6 @@ public class WordServiceBean implements WordService {
             if (user.getLearnedWordList() != null ) {
                 if(!user.getLearnedWordList().contains(word)){
                     user.getLearnedWordList().add(word);
-
                 }
             }else{
                 user.setLearnedWordList(new ArrayList<>());
@@ -176,5 +173,24 @@ public class WordServiceBean implements WordService {
 
         }
         return;
+    }
+
+    @Override
+    public List<Word> getWordsByWordsListId(List<String> wordIds) {
+        List<Word> listOfWords = null;
+        for (String item : wordIds) {
+            if(wordDao.findById(Long.parseLong(item)).get()!=null){
+                if(listOfWords!=null){
+                    listOfWords.add(wordDao.findById(Long.parseLong(item)).get());
+                }else{
+                    listOfWords=new ArrayList<>();
+                    listOfWords.add(wordDao.findById(Long.parseLong(item)).get());
+                }
+            }
+        }
+        if(listOfWords!=null){
+            return listOfWords;
+        }
+        return null;
     }
 }
