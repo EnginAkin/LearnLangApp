@@ -26,4 +26,6 @@ public interface WordService {
     void deleteUserWordListByWordId(Long userId, Long wordId);
 
     List<Word> getWordsByWordsListId(List<String> wordIds);
+
+    List<Word> getThreeWrongWordAnswer(Long id);
 }

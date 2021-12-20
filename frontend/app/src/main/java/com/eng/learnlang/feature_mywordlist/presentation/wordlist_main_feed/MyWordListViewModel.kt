@@ -57,9 +57,6 @@ class MyWordListViewModel @Inject constructor(
 
     fun onEvent(event: MyWordListEvent){
             when(event){
-                is MyWordListEvent.ClickStartTestButton ->{
-
-                }
                 is MyWordListEvent.ListenWord ->{
                     speak(event.word,application)
                 }

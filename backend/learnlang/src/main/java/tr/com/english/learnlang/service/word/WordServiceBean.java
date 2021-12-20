@@ -59,6 +59,7 @@ public class WordServiceBean implements WordService {
 
 
 
+
     @Override
     public void addWord(Word word) {
         Long categoryId = word.getCategory().getId();
@@ -192,5 +193,11 @@ public class WordServiceBean implements WordService {
             return listOfWords;
         }
         return null;
+    }
+
+    @Override
+    public List<Word> getThreeWrongWordAnswer(Long id) {
+
+        return wordDao.getThreWrongAnswerWithLimit(id);
     }
 }

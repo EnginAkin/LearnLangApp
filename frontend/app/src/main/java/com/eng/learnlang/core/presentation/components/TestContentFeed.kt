@@ -23,11 +23,9 @@ import com.eng.learnlang.util.speak
 
 @Composable
 fun TestContent(
-    navController: NavController,
     CorrectAnswer: Word,
     allQuestion: List<Word>,
     onClik: (Word) -> Unit,
-    testViewModel: TestViewModel= hiltViewModel()
 ) {
     val applicationContext = LocalContext.current
     var clickedCorreckButton = false
@@ -49,7 +47,7 @@ fun TestContent(
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_ses_icon),
-                        contentDescription = "ıcon for voice word",
+                        contentDescription = "Icon for voice word",
                         Modifier.size(35.dp)
                     )
                 }
@@ -78,6 +76,7 @@ fun TestContent(
                 Text(text = "Doğru Seçeneği Seçin", color = Color.White)
             }
             Spacer(modifier = Modifier.height(20.dp))
+
             allQuestion.shuffled().forEachIndexed { index, word ->
                 Button(
                     onClick = {

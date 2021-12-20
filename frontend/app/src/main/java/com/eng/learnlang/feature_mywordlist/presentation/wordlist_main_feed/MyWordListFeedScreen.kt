@@ -22,28 +22,36 @@ import com.eng.learnlang.core.domain.model.Sentence
 import com.eng.learnlang.core.domain.model.Word
 import com.eng.learnlang.core.presentation.components.MyListWordContent
 import com.eng.learnlang.core.presentation.components.StandartToolBar
+import com.eng.learnlang.core.util.Screen
 
 
 @Composable
 fun MyWordListFeedScreen(
     navController: NavController,
-    viewmodel : MyWordListViewModel= hiltViewModel()
+    viewmodel: MyWordListViewModel = hiltViewModel()
 ) {
-    val state =viewmodel.state.value
+    val state = viewmodel.state.value
     Column(modifier = Modifier.fillMaxSize()) {
-        StandartToolBar(navController = navController){
-            Text(text = "My Word List",color= Color.White,fontWeight = FontWeight.Bold)
+        StandartToolBar(navController = navController) {
+            Text(text = "My Word List", color = Color.White, fontWeight = FontWeight.Bold)
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Button(onClick = { /*TODO*/ },modifier=Modifier.clip(RoundedCornerShape(20.dp))) {
-                    Text(text = "Start Test",style = MaterialTheme.typography.h2)
-                    Icon(imageVector= Icons.Default.SkipNext, contentDescription ="next" ,tint = Color.White,modifier = Modifier.size(40.dp))
-                }
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Button(onClick = {
+                             navController.navigate(Screen.MyWordListDetailScreen.route)
+            }, modifier = Modifier.clip(RoundedCornerShape(20.dp))) {
+                Text(text = "Start Test", style = MaterialTheme.typography.h2)
+                Icon(
+                    imageVector = Icons.Default.SkipNext,
+                    contentDescription = "next",
+                    tint = Color.White,
+                    modifier = Modifier.size(40.dp)
+                )
             }
+        }
         Spacer(modifier = Modifier.height(20.dp))
-        LazyColumn( ){
+        LazyColumn() {
             state.wordList?.forEachIndexed { index, word ->
 
                 item {

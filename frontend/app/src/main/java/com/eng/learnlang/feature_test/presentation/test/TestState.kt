@@ -4,6 +4,7 @@ import com.eng.learnlang.core.domain.model.Word
 
 data class TestState(
     val currentIndex : Int = 0,
-    val wordList: List<Word> ?=null,
+    val wordList: ArrayList<Word> ?=null,
     val isLoading:Boolean =false,
+    val error : String ?=null,
 )

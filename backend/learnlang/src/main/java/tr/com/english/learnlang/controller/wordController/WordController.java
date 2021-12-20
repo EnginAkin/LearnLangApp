@@ -43,11 +43,18 @@ public class WordController {
         System.out.println("categories kısmına girildi");
         return  wordService.getResponseCategories();
     }
+
     @GetMapping("/getWordsWithCategoryName")
     List<Word> getWordsWithCategoryName(@RequestParam("categoryName") String categoryName){
         System.out.println("getWordsWithCategoryName fun cağrıldı");
         return  wordService.getWordsByCategoryName(categoryName);
     }
+    @GetMapping("/word/getThreeWrongWordAnswer")
+    List<Word> getThreeWrongWordAnswer(@RequestParam("id") Long id){
+        System.out.println("geldi 1");
+        return  wordService.getThreeWrongWordAnswer(id);
+    }
+
 
     @GetMapping("/getWordsByCategoryNameAndWithPage/{categoryName}")
     List<Word> getWordsWithPagination(@PathVariable("categoryName") String categoryName,@RequestParam("pageNumber") int pageNumber,@RequestParam("limit") int limit){
