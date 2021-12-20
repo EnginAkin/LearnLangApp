@@ -5,10 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eng.learnlang.core.presentation.util.UiEvent
 import com.eng.learnlang.core.util.Resource
+import com.eng.learnlang.core.util.Screen
 import com.eng.learnlang.feature_main.data.repository.WordsWrapper
 import com.eng.learnlang.feature_main.domain.use_case.MainFeedUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +25,8 @@ class TeachViewModel @Inject constructor(
     private val _state = mutableStateOf(TeachState())
     val state: State<TeachState> = _state
 
-
+    private val _eventFlow = MutableSharedFlow<UiEvent>()
+    val eventFlow=_eventFlow.asSharedFlow()
 
     init {
         savedStateHandle.get<String>("wordsId")?.let {
@@ -39,8 +44,10 @@ class TeachViewModel @Inject constructor(
                     currentIndex = _state.value.currentIndex+1
                 )
             }
-            is TeachEvent.navigate ->{
-
+            is TeachEvent.LoadTest ->{
+                viewModelScope.launch {
+                    _eventFlow.emit(UiEvent.Navigate(Screen.TestDetailScreen.route))
+                }
             }
         }
     }
@@ -80,7 +87,7 @@ class TeachViewModel @Inject constructor(
 
     sealed class TeachEvent {
             object LoadNext:TeachEvent()
-            class navigate(val route : String):TeachEvent()
+            object LoadTest:TeachEvent()
     }
 
 }

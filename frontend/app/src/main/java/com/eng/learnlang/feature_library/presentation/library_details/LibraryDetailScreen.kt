@@ -57,7 +57,7 @@ fun LibraryDetailScreen(
         ) {
             StringArray.forEach { hashTag ->
                 Text(
-                    text = hashTag,
+                    text = hashTag.trim(),
                     color = Color.Black,
                     modifier = Modifier.clickable {
                         showTooltip.value = true

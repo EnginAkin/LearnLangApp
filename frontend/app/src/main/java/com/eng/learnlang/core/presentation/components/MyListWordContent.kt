@@ -29,14 +29,11 @@ import com.eng.learnlang.util.speak
 fun MyListWordContent(
     word: Word,
     indexNumber: Int ,
-    addlistClick : (Word) ->Unit={},
-    listenClickListener : () -> Unit={}
+    listenClickListener : (String) -> Unit={}
 ) {
     val applicationContext = LocalContext.current
 
-    val verifiedState = remember {
-        mutableStateOf(word.verified)
-    }
+
     var clicked = remember {
         mutableStateOf(false)
     }
@@ -47,6 +44,7 @@ fun MyListWordContent(
                 .padding(vertical = 5.dp)
                 .clickable {
                     clicked.value= !clicked.value
+                    word.name?.let { listenClickListener(it) }
                 }
                 .border(width = 1.dp, color = Color.White, RoundedCornerShape(10.dp))
                 .background(color = if (clicked.value) MaterialTheme.colors.onSurface else MaterialTheme.colors.onSecondary)
@@ -64,7 +62,7 @@ fun MyListWordContent(
                     Icon(
                         imageVector = Icons.Default.Verified,
                         contentDescription = "verified",
-                        tint = if(verifiedState.value) MaterialTheme.colors.primary else Color.White,
+                        tint = MaterialTheme.colors.primary ,
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(5.dp))
@@ -77,8 +75,6 @@ fun MyListWordContent(
 
         }
         if(clicked.value){
-            println("${word.name} clicked value =" +clicked.value)
-            word.name?.let { speak(it,applicationContext = applicationContext) }
             Column(modifier = Modifier
                 .fillMaxWidth()
             ){
@@ -87,13 +83,20 @@ fun MyListWordContent(
                     .padding(horizontal = 25.dp)) {
                     Column() {
                         // bayrak iconu
-                        Image(painter = painterResource(id = R.drawable.ic_turkey_flag), contentDescription = "turkey flag",modifier = Modifier.padding(12.dp) )
+                        Image(painter = painterResource(id = R.drawable.ic_turkey_flag), contentDescription = "turkey fla g",modifier = Modifier.padding(12.dp) )
                     }
                     Column {
                         Column(modifier = Modifier.padding(15.dp)) {
                             word.mean?.let { Text(text = it,style = MaterialTheme.typography.body1,color = Color.White,) }
                         }
                         Divider(color = Color.White,thickness = 0.8.dp)
+                       if(word.description!=null){
+                           Column(modifier = Modifier.padding(10.dp)) {
+                               Text(text =word.description,style = MaterialTheme.typography.body1,color = Color.White)
+                           }
+                           Divider(color = Color.White,thickness = 0.8.dp)
+
+                       }
                         Column(modifier = Modifier.padding(10.dp)) {
                             word.exampleSentence?.get(0)?.sentenceEN?.let {
                                     Text(text = word.exampleSentence[0].sentenceEN!!,style = MaterialTheme.typography.body1,color = Color.White)
